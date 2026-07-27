@@ -1,11 +1,14 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
+import { LoginComponent } from './features/auth/login.component';
 
 @Component({
   selector: 'app-root',
-  imports: [],
-  template: ` <h1>Hello World!</h1> `,
-  styleUrls: ['./app.css'],
+  imports: [LoginComponent],
+  template: `
+    <app-login />
+  `,
+  styles: ``,
 })
 export class App {
-  title = 'Learn Angular';
+
 }
