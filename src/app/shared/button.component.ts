@@ -34,4 +34,4 @@ export enum ButtonVarient {
 export enum ButtonType {
     BUTTON = "button",
     SUBMIT = "submit"
-}
+} 
