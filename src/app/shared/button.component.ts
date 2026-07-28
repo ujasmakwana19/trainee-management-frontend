@@ -34,7 +34,7 @@ import { Component, input, output } from '@angular/core';
     }
 
     button:disabled {
-      opacity: 0.5;
+      opacity: 0.8;
       cursor: not-allowed;
     }
   `]

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { LoginComponent } from './login.component';
+import { LoginComponent } from './component/login.component';
 
 @Component({
   selector: 'app-auth-page',
@@ -7,4 +7,6 @@ import { LoginComponent } from './login.component';
   imports: [LoginComponent],
   template: `<app-login />`
 })
-export class AuthPage {}
+export class AuthPage {
+  title = "Login - Trainee Management"
+}

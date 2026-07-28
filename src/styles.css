@@ -15,6 +15,7 @@
   --text-color: #111827;
   --text-muted: #6B7280;
   --border-color: #E5E7EB;
+  --error-color: #EF4444;
 }
 
 [data-theme='dark'] {
@@ -27,6 +28,7 @@
   --text-color: #F1F5F9;
   --text-muted: #94A3B8;
   --border-color: #334155;
+  --error-color: #ff2727;
 }
 
 body {

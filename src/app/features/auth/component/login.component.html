@@ -7,16 +7,23 @@
     <h2>Trainee Management</h2>
     <p class="subtitle">Log in to continue</p>
 
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-      <div class="field">
-        <label>Email</label>
-        <input placeholder="you@example.com" formControlName="email" autocomplete="email">
-      </div>
+    <form [formGroup]="loginForm">
+      
+      <app-input
+        label="Email"
+        type="email"
+        placeholder="you@example.com"
+        autocomplete="email"
+        [control]="loginForm.get('email')"
+      />
 
-      <div class="field">
-        <label>Password</label>
-        <input placeholder="password" formControlName="password" type="password" autocomplete="current-password">
-      </div>
+      <app-input
+        label="Password"
+        type="password"
+        placeholder="password"
+        autocomplete="current-password"
+        [control]="loginForm.get('password')"
+      />
 
       <div class="form-actions">
         <app-button
@@ -27,5 +34,6 @@
         </app-button>
       </div>
     </form>
+    
   </div>
 </div>

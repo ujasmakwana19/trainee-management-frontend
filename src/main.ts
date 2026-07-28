@@ -6,7 +6,13 @@ import {bootstrapApplication} from '@angular/platform-browser';
 import App from './app/app';
 import routes from './app/app.route'
 import { provideRouter } from '@angular/router';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 
-bootstrapApplication(App, {providers: [provideRouter(routes)]}).catch((err) =>
+bootstrapApplication(App, {
+  providers: [
+    provideRouter(routes),
+    provideHttpClient()
+  ]
+}).catch((err) =>
   console.error(err),
 );

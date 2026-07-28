@@ -38,33 +38,6 @@ form {
   gap: 1rem;
 }
 
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 0.375rem;
-}
-
-label {
-  font-size: 0.8125rem;
-  font-weight: 500;
-  color: var(--text-muted);
-}
-
-input {
-  padding: 0.625rem 0.75rem;
-  border-radius: 6px;
-  border: 1px solid var(--border-color);
-  background: var(--bg-color);
-  color: var(--text-color);
-  font-family: inherit;
-  font-size: 0.9375rem;
-}
-
-input:focus {
-  outline: none;
-  border-color: var(--btn-color);
-}
-
 .form-actions {
   display: flex;
   justify-content: flex-end;
