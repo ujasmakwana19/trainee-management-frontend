@@ -1,19 +1,27 @@
-import { Service } from "@angular/core";
+import { effect, Injectable, signal } from "@angular/core";
 
-@Service()
+export type Theme = 'light' | 'dark'
+
+@Injectable({providedIn : 'root'})
 export class ThemeService {
-    readonly key : string = "theme"
+    private readonly storageKey : string = 'theme-type'
     
-    theme() : string {
-        return localStorage.getItem(this.key) ?? 'light'
+    readonly theme = signal<Theme>(this.getInit())
+
+    private getInit() : Theme {
+        return localStorage.getItem(this.storageKey) === 'dark' ? 'dark' : 'light'
     }
 
-    toggleTheme() : void {
-        if(localStorage.getItem(this.key) === 'light')
-            localStorage.setItem(this.key, 'dark')
-        else if(localStorage.getItem(this.key) === 'dark')
-            localStorage.setItem(this.key, 'light')
-        else
-            localStorage.setItem(this.key, 'light')
+    constructor(){
+        // similar to useEffect in the React , it runs when the signal/state changes inside it
+        effect(() => {
+            const currentTheme = this.theme()
+            localStorage.setItem(this.storageKey, currentTheme);
+            document.documentElement.setAttribute('data-theme', currentTheme);
+        })
+    }
+
+    toggleTheme(){
+        this.theme.update((val) => (val === 'light' ? 'dark' : 'light'))
     }
 }

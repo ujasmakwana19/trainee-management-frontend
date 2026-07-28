@@ -5,30 +5,45 @@ import { Component, input, output } from '@angular/core';
   standalone: true,
   template: `
     <button 
-      [type]="type()" 
-      [class]="'btn btn-' + variant()" 
+      [type]="type()"  
+      [disabled]="isDisable()"
       (click)="clicked.emit($event)">
       <!-- Used to insert the content html content -->
       <ng-content />
     </button>
   `,
   styles: [`
-    .btn { padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer; }
-    .btn-primary { background: #007bff; color: white; }
-    .btn-secondary { background: #6c757d; color: white; }
+    button {
+      padding: 0.5rem 0.75rem;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 0.9375rem;
+      background: var(--btn-color);
+      color: #ffffff;
+      transition: opacity 0.15s ease, transform 0.05s ease;
+    }
+
+    button:hover:not(:disabled) {
+      opacity: 0.9;
+    }
+
+    button:active:not(:disabled) {
+      transform: scale(0.97);
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
   `]
 })
 
 export class ButtonComponent {
-  variant = input<ButtonVarient>(ButtonVarient.PRIMARY); 
   type = input<ButtonType>(ButtonType.BUTTON);
-
+  isDisable = input<boolean>(false)
   clicked = output<MouseEvent>(); 
-}
-
-export enum ButtonVarient {
-    PRIMARY = 'primary',
-    SECONDARY = 'secondary'
 }
 
 export enum ButtonType {

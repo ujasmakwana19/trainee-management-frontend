@@ -1,23 +1,38 @@
-/* You can add global styles to this file, and also import other style files */
-* {
+
+*, *::before, *::after {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  color-scheme: light;
+
+  --primary-color: #4F46E5;
+  --btn-color: #4F46E5;       
+  --bg-color: #F9FAFB;
+  --surface-color: #FFFFFF;
+  --text-color: #111827;
+  --text-muted: #6B7280;
+  --border-color: #E5E7EB;
+}
+
+[data-theme='dark'] {
+  color-scheme: dark;
+
+  --primary-color: #818CF8;
+  --btn-color: #c46b1c;       
+  --bg-color: #0F172A;
+  --surface-color: #1E293B;
+  --text-color: #F1F5F9;
+  --text-muted: #94A3B8;
+  --border-color: #334155;
 }
 
 body {
+  background: var(--bg-color);
+  color: var(--text-color);
   font-family: 'Be Vietnam Pro', sans-serif;
-}
-:root {
-  --primary-color: #605DC8;
-  --secondary-color: #8B89E6;
-  --accent-color: #e8e7fa;
-  --shadow-color: #E8E8E8;
-}
-
-button.primary {
-  padding: 10px;
-  border: solid 1px var(--primary-color);
-  background: var(--primary-color);
-  color: white;
-  border-radius: 8px;
+  transition: background 0.2s ease, color 0.2s ease;
+  min-height: 100vh;
 }
