@@ -40,7 +40,6 @@ export class AuthApiService {
             )
     }
 
-    // auth.service.ts
     refreshToken(): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${uri}${REFRESH}`, {}, { withCredentials: true })
         .pipe(
