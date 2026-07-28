@@ -4,6 +4,8 @@ import { ThemeToggleComponent } from '../../../shared/themebuttton.component';
 import { InputComponent } from '../../../shared/input.component';
 import { ButtonComponent, ButtonType } from '../../../shared/button.component';
 import { AuthApiService } from '../../../core/services/auth/auth.service';
+import routes from '../../../app.route';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,9 +14,11 @@ import { AuthApiService } from '../../../core/services/auth/auth.service';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
+
 export class LoginComponent {
   ButtonType = ButtonType;
   private authService = inject(AuthApiService);
+  private router = inject(Router)
 
   // NonNullable form control values ensure string types instead of string | null
   loginForm = new FormGroup({
@@ -33,6 +37,7 @@ export class LoginComponent {
       next: (response) => {
         console.log(this.authService.accessToken());
         console.log(this.authService.currentUser());
+        this.router.navigate(['/home'])
         
       },
       error: (err) => {

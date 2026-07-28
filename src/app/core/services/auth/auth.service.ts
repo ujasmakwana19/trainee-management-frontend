@@ -2,9 +2,8 @@ import { computed, inject, Injectable, signal } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable, tap } from "rxjs";
 import { AuthResponse, LoginCredentials, UserInfo } from "./auth.model";
-import { signalGetFn } from "@angular/core/primitives/signals";
 import { uri } from "../constant";
-import { LOGIN } from "./auth.route";
+import { LOGIN, REFRESH } from "./auth.route";
 
 @Injectable({providedIn:'root'})
 export class AuthApiService {
@@ -22,20 +21,34 @@ export class AuthApiService {
     setAccessToken (token : string | null) {
         this.accessTokenSignal.set(token)
     }
-    setUser (data : UserInfo ) {
+    setUser (data : UserInfo | null) {
         this.currentUserSignal.set(data)
     }
 
     loginUser(body : LoginCredentials) : Observable<AuthResponse> {
         
-        return this.http.post<AuthResponse>(`${uri}${LOGIN}`, body, {
-            withCredentials: true
-        }).pipe(
-            tap((response : AuthResponse) => {
-                this.setAccessToken(response.data.token)
-                this.setUser(response.data.user)
-            })
-        )
+        return this.http.post<AuthResponse>(
+            `${uri}${LOGIN}`, 
+            body, 
+            { withCredentials: true})
+            .pipe
+            (
+                tap((response : AuthResponse) => {
+                    this.setAccessToken(response.data.token)
+                    this.setUser(response.data.user)
+                })
+            )
+    }
+
+    // auth.service.ts
+    refreshToken(): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${uri}${REFRESH}`, {}, { withCredentials: true })
+        .pipe(
+        tap((response: AuthResponse) => {
+            this.setAccessToken(response.data.token);
+            this.setUser(response.data.user);
+        })
+        );
     }
 }
 
