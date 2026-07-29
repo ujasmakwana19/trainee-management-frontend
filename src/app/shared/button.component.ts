@@ -29,7 +29,7 @@ export enum ButtonVariant  {
       border-radius: 6px;
       border: none;
       cursor: pointer;
-      font-weight: 500;
+      font-weight: 550;
       font-size: 0.9375rem;
       color: #ffffff;
       background: var(--btn-color);
@@ -46,7 +46,7 @@ export enum ButtonVariant  {
     }
 
     button:active:not(:disabled) {
-      transform: scale(0.97);
+      transform: scale(0.80);
     }
 
     button:disabled {
