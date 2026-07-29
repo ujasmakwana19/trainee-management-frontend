@@ -3,7 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable, tap } from "rxjs";
 import { AuthResponse, LoginCredentials, UserInfo } from "./auth.model";
 import { uri } from "../constant";
-import { LOGIN, REFRESH } from "./auth.route";
+import { LOGIN, LOGOUT, REFRESH } from "./auth.route";
 
 @Injectable({providedIn:'root'})
 export class AuthApiService {
@@ -11,10 +11,12 @@ export class AuthApiService {
 
     private accessTokenSignal = signal<string | null>(null)
     private currentUserSignal = signal<UserInfo | null>(null)
+    private triedToRefreshFlag = signal<boolean>(false)
 
-    // to get secret token via readonly
+    // to get secret token via readonly signal
     readonly accessToken = this.accessTokenSignal.asReadonly();
     readonly currentUser = this.currentUserSignal.asReadonly();
+    readonly triedTORefresh = this.triedToRefreshFlag.asReadonly();
 
     readonly isAuthenticated = computed(() => !!this.accessTokenSignal());
 
@@ -36,17 +38,29 @@ export class AuthApiService {
                 tap((response : AuthResponse) => {
                     this.setAccessToken(response.data.token)
                     this.setUser(response.data.user)
+                    
                 })
             )
     }
 
     refreshToken(): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${uri}${REFRESH}`, {}, { withCredentials: true })
-        .pipe(
-        tap((response: AuthResponse) => {
-            this.setAccessToken(response.data.token);
-            this.setUser(response.data.user);
-        })
+        this.triedToRefreshFlag.set(true)
+        return this.http.post<AuthResponse>(`${uri}${REFRESH}`, {}, { withCredentials: true })
+            .pipe(
+            tap((response: AuthResponse) => {
+                this.setAccessToken(response.data.token);
+                this.setUser(response.data.user);
+            })
+        );
+    }
+
+    logout() : Observable<void>{
+        return this.http.post<void>(`${uri}${LOGOUT}`, {}, { withCredentials: true })
+            .pipe(
+            tap(() => {
+                this.setAccessToken(null);
+                this.setUser(null);
+            })
         );
     }
 }

@@ -1,5 +1,16 @@
 import { Component, input, output } from '@angular/core';
 
+export enum ButtonType {
+  BUTTON = "button",
+  SUBMIT = "submit"
+}
+
+export enum ButtonVariant  {
+  DEFAULT = 'default',
+  DANGER = 'danger' ,
+  SAVE =  'save'
+};
+
 @Component({
   selector: 'app-button',
   standalone: true,
@@ -7,26 +18,31 @@ import { Component, input, output } from '@angular/core';
     <button 
       [type]="type()"  
       [disabled]="isDisable()"
+      [class]="variant()"
       (click)="clicked.emit($event)">
-      <!-- Used to insert the content html content -->
       <ng-content />
     </button>
   `,
   styles: [`
     button {
-      padding: 0.5rem 0.75rem;
+      padding: 0.5rem 0.875rem;
       border-radius: 6px;
       border: none;
       cursor: pointer;
       font-weight: 500;
       font-size: 0.9375rem;
-      background: var(--btn-color);
       color: #ffffff;
-      transition: opacity 0.15s ease, transform 0.05s ease;
+      background: var(--btn-color);
+      transition: background-color 0.15s ease, transform 0.05s ease, opacity 0.15s ease, box-shadow 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
     }
 
     button:hover:not(:disabled) {
-      opacity: 0.9;
+      opacity: 0.92;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
     }
 
     button:active:not(:disabled) {
@@ -34,19 +50,29 @@ import { Component, input, output } from '@angular/core';
     }
 
     button:disabled {
-      opacity: 0.8;
+      opacity: 0.5;
       cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    button.danger {
+      background: var(--btn-danger-bg);
+    }
+    button.danger:hover:not(:disabled) {
+      background: var(--btn-danger-hover);
+    }
+
+    button.save {
+      background: var(--btn-save-bg);
+    }
+    button.save:hover:not(:disabled) {
+      background: var(--btn-save-hover);
     }
   `]
 })
-
 export class ButtonComponent {
   type = input<ButtonType>(ButtonType.BUTTON);
-  isDisable = input<boolean>(false)
+  isDisable = input<boolean>(false);
+  variant = input<ButtonVariant>(ButtonVariant.DEFAULT);
   clicked = output<MouseEvent>(); 
 }
-
-export enum ButtonType {
-    BUTTON = "button",
-    SUBMIT = "submit"
-} 

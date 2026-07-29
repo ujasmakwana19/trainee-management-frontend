@@ -13,13 +13,13 @@ export interface UserInfo{
     id : number ,
     username : string,
     email : string,
-    role : number
+    role : UserRole
 } 
 
 export enum UserRole {
-    Admin,
-    Mentor,
-    Trainee
+    Admin = 0,
+    Mentor = 1,
+    Trainee = 2
 }
 
 export interface LoginCredentials {

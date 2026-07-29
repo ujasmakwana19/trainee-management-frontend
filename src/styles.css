@@ -1,4 +1,3 @@
-
 *, *::before, *::after {
   margin: 0;
   padding: 0;
@@ -16,6 +15,12 @@
   --text-muted: #6B7280;
   --border-color: #E5E7EB;
   --error-color: #EF4444;
+
+  --btn-danger-bg: #DC2626;
+  --btn-danger-hover: #B91C1C;
+  
+  --btn-save-bg: #16A34A;
+  --btn-save-hover: #15803D;
 }
 
 [data-theme='dark'] {
@@ -29,6 +34,12 @@
   --text-muted: #94A3B8;
   --border-color: #334155;
   --error-color: #ff2727;
+
+  --btn-danger-bg: #EF4444;
+  --btn-danger-hover: #DC2626;
+  
+  --btn-save-bg: #22C55E;
+  --btn-save-hover: #16A34A;
 }
 
 body {

@@ -4,7 +4,6 @@ import { ThemeToggleComponent } from '../../../shared/themebuttton.component';
 import { InputComponent } from '../../../shared/input.component';
 import { ButtonComponent, ButtonType } from '../../../shared/button.component';
 import { AuthApiService } from '../../../core/services/auth/auth.service';
-import routes from '../../../app.route';
 import { Router } from '@angular/router';
 
 @Component({
@@ -35,15 +34,10 @@ export class LoginComponent {
 
     this.authService.loginUser(credentials).subscribe({
       next: (response) => {
-        console.log(this.authService.accessToken());
-        console.log(this.authService.currentUser());
         this.router.navigate(['/home'])
         
       },
       error: (err) => {
-        console.log('Login error:', err.error.message);
-        console.log('Login error:', err.error.errorCode);
-        console.log('Login error:', err.error.success);
       }
     });
   }
