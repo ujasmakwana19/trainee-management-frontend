@@ -34,7 +34,7 @@ export class LoginComponent {
 
     this.authService.loginUser(credentials).subscribe({
       next: (response) => {
-        this.router.navigate(['/home'])
+        this.router.navigate(['/ram/home'])
         
       },
       error: (err) => {

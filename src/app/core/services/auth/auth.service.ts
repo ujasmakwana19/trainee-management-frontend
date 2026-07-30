@@ -14,16 +14,16 @@ export class AuthApiService {
     private triedToRefreshFlag = signal<boolean>(false)
 
     // to get secret token via readonly signal
-    readonly accessToken = this.accessTokenSignal.asReadonly();
     readonly currentUser = this.currentUserSignal.asReadonly();
     readonly triedTORefresh = this.triedToRefreshFlag.asReadonly();
 
     readonly isAuthenticated = computed(() => !!this.accessTokenSignal());
 
-    setAccessToken (token : string | null) {
+    private setAccessToken (token : string | null) {
         this.accessTokenSignal.set(token)
     }
-    setUser (data : UserInfo | null) {
+
+    private setUser (data : UserInfo | null) {
         this.currentUserSignal.set(data)
     }
 
