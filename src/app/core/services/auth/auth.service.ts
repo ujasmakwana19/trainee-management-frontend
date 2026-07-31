@@ -1,6 +1,6 @@
 import { computed, inject, Injectable, signal } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { Observable, tap } from "rxjs";
+import { catchError, finalize, Observable, of, tap } from "rxjs";
 import { AuthResponse, LoginCredentials, UserInfo } from "./auth.model";
 import { uri } from "../constant";
 import { LOGIN, LOGOUT, REFRESH } from "./auth.route";
@@ -57,7 +57,7 @@ export class AuthApiService {
     logout() : Observable<void>{
         return this.http.post<void>(`${uri}${LOGOUT}`, {}, { withCredentials: true })
             .pipe(
-            tap(() => {
+            finalize(() => {
                 this.setAccessToken(null);
                 this.setUser(null);
             })

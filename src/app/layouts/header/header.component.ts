@@ -4,6 +4,7 @@ import { ThemeToggleComponent } from "../../shared/themebuttton.component";
 import { ButtonComponent, ButtonType, ButtonVariant } from "../../shared/button.component";
 import { Router } from "@angular/router";
 import { AuthApiService } from "../../core/services/auth/auth.service";
+import { RoutePath } from "../../core/route.constant";
 
 @Component({
   selector: 'app-header',
@@ -109,12 +110,10 @@ export class HeaderComponent {
 
   logout() {
     this.authService.logout().subscribe({
-      next: () => {
-        console.log("Logout Success")
-        this.router.navigate(['/login'])
-      },
-      error: () => console.log("Logout fail")
+      next: () => {},
+      error: () => {}
+    }).add(() => {
+      this.router.navigate([RoutePath.AUTH])
     });
-
   }
 }

@@ -1,6 +1,6 @@
 export interface AuthResponse {
     success : string,
-    errorMessage : string,
+    message : string,
     errorCode : number,
     data : {
         token : string,

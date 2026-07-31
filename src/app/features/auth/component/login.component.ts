@@ -36,7 +36,6 @@ export class LoginComponent {
     this.authService.loginUser(credentials).subscribe({
       next: (response) => {
         this.router.navigate([RoutePath.HOME])
-        
       },
       error: (err) => {
       }
