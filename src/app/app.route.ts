@@ -4,7 +4,6 @@ import { ErrorPage } from './features/errorpage/errorpage.page';
 import { authGuard } from './core/guards/auth.guards';
 import { MainLayout } from './layouts/main.page';
 import {RoutePath} from './core/route.constant';
-import { routeGuard } from './core/guards/routeAuthorization.guard';
 
 const routes: Routes = [
   { 
@@ -12,7 +11,7 @@ const routes: Routes = [
     component: AuthPage 
   },
   {
-    path: 'ram',
+    path: '',
     component: MainLayout,
     canActivateChild: [authGuard],
     children: [
@@ -26,34 +25,33 @@ const routes: Routes = [
         loadComponent: () => import('./features/home/home.page').then(m => m.HomePage)
       },
       { 
-        path: RoutePath.USERPROFILEBASE, 
+        path: RoutePath.USER_PROFILE_BASE, 
         loadComponent: () => import('./features/userprofile/userprofile.page').then(m => m.UserProfilePage)
       },
       { 
-        path: RoutePath.TRAINEEBASE, 
+        path: RoutePath.TRAINEE_BASE, 
         loadComponent: () => import('./features/trainee/trainee.page').then(m => m.TraineePage),
-        canActivate : [routeGuard]
       },
       { 
-        path: RoutePath.MENTORBASE, 
+        path: RoutePath.MENTOR_BASE, 
         loadComponent: () => import('./features/mentor/mentor.page').then(m => m.MentorPage)
       },
       { 
-        path: RoutePath.SUBMISSIONBASE, 
+        path: RoutePath.SUBMISSION_BASE, 
         loadComponent: () => import('./features/submission/submission.page').then(m => m.SubmissionPage)
       },
       {
-        path : RoutePath.TASKBASE,
+        path : RoutePath.TASK_BASE,
         loadComponent : () => import('./features/task/task.page').then(m => m.TaskPage)
       },
       {
-        path:RoutePath.REVIEWBASE,
+        path:RoutePath.REVIEW_BASE,
         loadComponent : () => import('./features/review/review.page').then(m => m.ReviewPage)
       }
     ]
   },
-  { path: RoutePath.ERRORPAGE, component: ErrorPage },
-  { path: '**', redirectTo: RoutePath.ERRORPAGE }
+  { path: RoutePath.ERROR_BASE, component: ErrorPage },
+  { path: '**', redirectTo: RoutePath.ERROR_BASE }
 ];
 
 export default routes

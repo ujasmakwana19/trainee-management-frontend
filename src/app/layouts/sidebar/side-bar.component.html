@@ -4,7 +4,7 @@
     </div>
 
     <nav class="nav-list">
-        <app-module routeLink="RoutePath.HOME" classType="sidebar-item">
+        <app-module [routeLink]="RoutePath.HOME" classType="sidebar-item">
             <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
                 stroke-width="1.75">
                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -13,7 +13,7 @@
             <span>Home</span>
         </app-module>
 
-        <app-module routeLink="/trainee" classType="sidebar-item" [roles]="[UserRole.Mentor, UserRole.Admin]">
+        <app-module [routeLink]="RoutePath.TRAINEE_BASE" classType="sidebar-item">
             <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
                 stroke-width="1.75">
                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -22,7 +22,7 @@
             <span>Trainee</span>
         </app-module>
 
-        <app-module routeLink="/mentor" classType="sidebar-item">
+        <app-module [routeLink]="RoutePath.MENTOR_BASE" classType="sidebar-item">
             <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
                 stroke-width="1.75">
                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -31,7 +31,7 @@
             <span>Mentor</span>
         </app-module>
 
-        <app-module routeLink="/task" classType="sidebar-item">
+        <app-module [routeLink]="RoutePath.TASK_BASE" classType="sidebar-item" >
             <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
                 stroke-width="1.75">
                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -40,7 +40,7 @@
             <span>Task Assigned</span>
         </app-module>
 
-        <app-module routeLink="/submission" classType="sidebar-item">
+        <app-module [routeLink]="RoutePath.SUBMISSION_BASE" classType="sidebar-item" >
             <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
                 stroke-width="1.75">
                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -49,7 +49,7 @@
             <span>Submissions</span>
         </app-module>
 
-        <app-module routeLink="/review" classType="sidebar-item">
+        <app-module [routeLink]="RoutePath.REVIEW_BASE" classType="sidebar-item">
             <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
                 stroke-width="1.75">
                 <path stroke-linecap="round" stroke-linejoin="round"

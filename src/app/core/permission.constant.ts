@@ -6,14 +6,15 @@ type PermissionHash = {
 }
 
 export const AuthorisePermission  : PermissionHash = {
-    [RoutePath.TRAINEEBASE] : [UserRole.Mentor, UserRole.Admin] ,
-    [RoutePath.MENTORBASE] : [] ,
-    [RoutePath.TASKBASE] : [] ,
-    [RoutePath.SUBMISSIONBASE] : [],
-    [RoutePath.REVIEWBASE] :  [],
+    [RoutePath.TRAINEE_BASE] : [UserRole.Mentor, UserRole.Admin] ,
+    [RoutePath.MENTOR_BASE] : [UserRole.Mentor, UserRole.Admin] ,
+    [RoutePath.TASK_BASE] : [] ,
+    [RoutePath.SUBMISSION_BASE] : [],
+    [RoutePath.REVIEW_BASE] :  [],
 
 
-    [RoutePath.USERPROFILEBASE] : [],
-    [RoutePath.HOME] : []
+    [RoutePath.USER_PROFILE_BASE] : [],
+    [RoutePath.HOME] : [],
+    [''] : []
 }
 

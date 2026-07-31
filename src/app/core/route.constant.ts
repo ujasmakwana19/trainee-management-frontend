@@ -1,15 +1,15 @@
 export const RoutePath  = {
-    TRAINEEBASE : 'trainee',
-    MENTORBASE : 'mentor',
-    TASKBASE : 'task',
-    SUBMISSIONBASE : 'submission',
-    REVIEWBASE : 'review',
+    TRAINEE_BASE : 'trainee',
+    MENTOR_BASE : 'mentor',
+    TASK_BASE : 'task',
+    SUBMISSION_BASE : 'submission',
+    REVIEW_BASE : 'review',
 
     AUTH : 'login',
-    USERPROFILEBASE : 'user-profile',
+    USER_PROFILE_BASE : 'user-profile',
 
     HOME : 'home',
 
-    ERRORPAGE : 'errorpage'
+    ERROR_BASE : 'errorpage'
 
 }

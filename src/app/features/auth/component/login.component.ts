@@ -5,6 +5,7 @@ import { InputComponent } from '../../../shared/input.component';
 import { ButtonComponent, ButtonType } from '../../../shared/button.component';
 import { AuthApiService } from '../../../core/services/auth/auth.service';
 import { Router } from '@angular/router';
+import { RoutePath } from '../../../core/route.constant';
 
 @Component({
   selector: 'app-login',
@@ -34,7 +35,7 @@ export class LoginComponent {
 
     this.authService.loginUser(credentials).subscribe({
       next: (response) => {
-        this.router.navigate(['/ram/home'])
+        this.router.navigate([RoutePath.HOME])
         
       },
       error: (err) => {

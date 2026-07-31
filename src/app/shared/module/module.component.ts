@@ -2,6 +2,7 @@ import { Component, input, computed, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthApiService } from '../../core/services/auth/auth.service'; 
 import { UserRole } from '../../core/services/auth/auth.model';
+import { AuthorisePermission } from '../../core/permission.constant';
 
 @Component({
   selector: 'app-module',
@@ -27,14 +28,13 @@ export class ModuleComponent {
   routeLink = input.required<string>();
   classType = input.required<string>()
 
-  roles = input<UserRole[]>([]);
 
   // false to work on the prefix based to highlight root and child both
   // true to work on the same url
   exact = input<boolean>(false);
 
   isVisible = computed(() => {
-    const requiredRoles = this.roles();
+    const requiredRoles = AuthorisePermission[this.routeLink()]
     
     // Component is open to everyone
     if (!requiredRoles || requiredRoles.length === 0) {
