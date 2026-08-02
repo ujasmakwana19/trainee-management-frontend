@@ -1,0 +1,1 @@
+export const TRAINEE_GETALL = 'trainees/getall'

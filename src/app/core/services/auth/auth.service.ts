@@ -1,19 +1,23 @@
 import { computed, inject, Injectable, signal } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { catchError, finalize, Observable, of, tap } from "rxjs";
+import { catchError, EMPTY, finalize, Observable, of, tap, throwError } from "rxjs";
 import { AuthResponse, LoginCredentials, UserInfo } from "./auth.model";
 import { uri } from "../constant";
 import { LOGIN, LOGOUT, REFRESH } from "./auth.route";
+import { ToasterService } from "../toaster/toaster.service";
+import { SUCCESS } from "../../message.localizer";
 
 @Injectable({providedIn:'root'})
 export class AuthApiService {
     private http = inject(HttpClient)
+    private toasterService = inject(ToasterService)
 
     private accessTokenSignal = signal<string | null>(null)
     private currentUserSignal = signal<UserInfo | null>(null)
     private triedToRefreshFlag = signal<boolean>(false)
 
     // to get secret token via readonly signal
+    readonly accessToken = this.accessTokenSignal.asReadonly();
     readonly currentUser = this.currentUserSignal.asReadonly();
     readonly triedTORefresh = this.triedToRefreshFlag.asReadonly();
 
@@ -38,7 +42,11 @@ export class AuthApiService {
                 tap((response : AuthResponse) => {
                     this.setAccessToken(response.data.token)
                     this.setUser(response.data.user)
-                    
+                    this.toasterService.showMessage(SUCCESS.USER_LOGGED_IN)
+                }),
+                catchError((errorRes) => {                    
+                    this.toasterService.showError(errorRes)
+                    return throwError(() => new Error(errorRes.error.message));
                 })
             )
     }
@@ -60,6 +68,7 @@ export class AuthApiService {
             finalize(() => {
                 this.setAccessToken(null);
                 this.setUser(null);
+                this.toasterService.showMessage(SUCCESS.USER_LOGGED_OUT)
             })
         );
     }

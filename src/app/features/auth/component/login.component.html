@@ -28,7 +28,7 @@
       <div class="form-actions">
         <app-button
           [type]="ButtonType.SUBMIT"
-          [isDisable]="loginForm.invalid"
+          [isDisable]="loginForm.invalid || isClicked()"
           (clicked)="onSubmit()">
           Login
         </app-button>
