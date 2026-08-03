@@ -20,7 +20,6 @@ export class ApiHandler {
     private loader = inject(LoaderService)
 
     private refreshAccessTokenOnExpiry<T>(stackedMethod : Observable<ApiResponse<T>>) : Observable<ApiResponse<T>> {
-        this.loader.show()
 
         return this.authService.refreshToken().pipe(
             switchMap((response : AuthResponse) => {

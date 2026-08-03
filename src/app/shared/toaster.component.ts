@@ -1,5 +1,5 @@
 import { Component, inject } from "@angular/core";
-import { ToasterService } from "../../core/services/toaster/toaster.service";
+import { ToasterService } from "../core/services/toaster/toaster.service";
 
 @Component({
   selector: 'app-toaster',
@@ -14,7 +14,7 @@ import { ToasterService } from "../../core/services/toaster/toaster.service";
                 [class.toast-success]="t.type === 'success'"
             >
                 <span>{{ t.message }}</span>
-                <button class="toast-close" (click)="toasterService.dismiss(t.id)">X</button>
+                <button class="toast-close" aria-label="Close Toast" (click)="toasterService.dismiss(t.id)">X</button>
             </div>
         }
     </div>

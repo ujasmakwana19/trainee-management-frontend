@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { ToasterComponent } from './shared/toaster/toaster.component';
-import { LoaderComponent } from './shared/loader/loader.component';
+import { ToasterComponent } from './shared/toaster.component';
+import { LoaderComponent } from './shared/loader.component';
 
 @Component({
   selector: 'app-root',

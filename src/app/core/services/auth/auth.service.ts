@@ -6,11 +6,14 @@ import { uri } from "../constant";
 import { LOGIN, LOGOUT, REFRESH } from "./auth.route";
 import { ToasterService } from "../toaster/toaster.service";
 import { SUCCESS } from "../../message.localizer";
+import { LoaderService } from "../loader/loader.service";
 
 @Injectable({providedIn:'root'})
 export class AuthApiService {
     private http = inject(HttpClient)
     private toasterService = inject(ToasterService)
+    private loaderService = inject(LoaderService)
+
 
     private accessTokenSignal = signal<string | null>(null)
     private currentUserSignal = signal<UserInfo | null>(null)
@@ -32,6 +35,7 @@ export class AuthApiService {
     }
 
     loginUser(body : LoginCredentials) : Observable<AuthResponse> {
+        this.loaderService.show();
         
         return this.http.post<AuthResponse>(
             `${uri}${LOGIN}`, 
@@ -42,9 +46,11 @@ export class AuthApiService {
                 tap((response : AuthResponse) => {
                     this.setAccessToken(response.data.token)
                     this.setUser(response.data.user)
+                    this.loaderService.hide();
                     this.toasterService.showMessage(SUCCESS.USER_LOGGED_IN)
                 }),
                 catchError((errorRes) => {                    
+                    this.loaderService.hide();
                     this.toasterService.showError(errorRes)
                     return throwError(() => new Error(errorRes.error.message));
                 })

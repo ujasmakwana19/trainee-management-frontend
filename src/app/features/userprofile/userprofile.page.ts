@@ -1,10 +1,11 @@
 import { Component } from "@angular/core";
+import { UserProfileComponent } from "./userprofile.component";
 
 @Component({
     selector : `app-userprofile`,
     standalone : true,
-    imports : [],
-    template : `user profile content`
+    imports : [UserProfileComponent],
+    template : `<app-userprofile-view />`
 })
 
 export class UserProfilePage {
