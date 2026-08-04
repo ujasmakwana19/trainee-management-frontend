@@ -12,6 +12,7 @@ export const PermissionKey = {
     TRAINEE_BASE : 'trainee:view',
     TRAINEE_ADD : 'trainee:add',
     TRAINEE_EDIT : 'trainee:edit',
+    TRAINEE_DELETE : 'trainee:delete',
 
     MENTOR_BASE : 'mentor:view',
     MENTOR_ADD : 'mentor:add',
@@ -34,10 +35,10 @@ export const AuthorisePermission  : PermissionHash = {
     [PermissionKey.SUBMISSION_BASE] : [],
     [PermissionKey.REVIEW_BASE] :  [],
 
-    [PermissionKey.TRAINEE_ADD] : [],
+    [PermissionKey.TRAINEE_ADD] : [UserRole.Mentor, UserRole.Admin],
 
 
-    [PermissionKey.USER_PROFILE_BASE] : [ UserRole.Admin],
+    [PermissionKey.USER_PROFILE_BASE] : [],
     [PermissionKey.HOME] : []
 }
 

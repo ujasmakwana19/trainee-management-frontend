@@ -41,8 +41,8 @@ export class LoginComponent {
         this.router.navigate([RoutePath.HOME])
       },
       error: (err) => {
-        this.isClicked.set(false)
-      }
+      },
+      complete: () => this.isClicked.set(false)
     });
   }
 }

@@ -67,7 +67,33 @@ export class ApiHandler {
     }
 
     // POST API
-    getPost<T>(){}
+    postApi<TRequest, TResponse>(pathToHit : string, body : TRequest, isRetry : boolean = false) : Observable<ApiResponse<TResponse>>{
+        if(!this.authService.isAuthenticated()){
+            this.router.navigate([RoutePath.AUTH])
+            this.toaster.showMessage(ERROR.SESSION_EXPIRED);
+            return EMPTY
+        }
+
+        this.loader.show()
+
+        return this.http.post<ApiResponse<TResponse>>(
+            `${uri}${pathToHit}`, 
+            body,
+            {withCredentials: false}
+        ).pipe(
+            switchMap((response : ApiResponse<TResponse>) => {
+                return of(response)
+            }),
+            catchError((errorResponse) => {
+                if(!errorResponse.error.success && errorResponse.error.errorCode === 4555 && !isRetry){
+                    return this.refreshAccessTokenOnExpiry<TResponse>(this.postApi<TRequest, TResponse>(pathToHit, body, true))
+                }
+                this.toaster.showError(errorResponse)
+                return EMPTY
+            }),
+            finalize(() => this.loader.hide())
+        )
+    }
 
     // PUT API
     putApi(){}

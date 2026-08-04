@@ -1,9 +1,10 @@
 import { inject, Injectable, signal } from "@angular/core";
-import { TraineeResponse } from "./trainee.model";
+import { TraineeRequest, TraineeResponse } from "./trainee.model";
 import { ApiHandler } from "../../apiHandler/apiWrapper.service";
-import { TRAINEE_GETALL } from "./trainee.route";
+import { TRAINEE_CREATE, TRAINEE_GETALL } from "./trainee.route";
 import { ApiResponse } from "../../apiHandler/apiResponse.model";
 import { Observable, tap } from "rxjs";
+import { RoutePath } from "../../route.constant";
 
 @Injectable({providedIn : 'root'})
 export class TraineeService {
@@ -24,6 +25,15 @@ export class TraineeService {
     
     getAll() : void {
         this.refresh()
+    }
+
+    createTrainee(body : TraineeRequest) : Observable<ApiResponse<TraineeResponse>> {
+        return this.apiHandler.postApi<TraineeRequest, TraineeResponse>(
+            TRAINEE_CREATE,
+            body 
+        ).pipe(
+            tap(() => this.refresh())
+        )
     }
     
 }

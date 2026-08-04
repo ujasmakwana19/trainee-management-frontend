@@ -1,4 +1,6 @@
-import { Component, input, output } from '@angular/core';
+import { Component, computed, inject, input, output } from '@angular/core';
+import { AuthorisePermission } from '../core/permission.constant';
+import { AuthApiService } from '../core/services/auth/auth.service';
 
 export enum ButtonType {
   BUTTON = "button",
@@ -15,15 +17,17 @@ export enum ButtonVariant {
   selector: 'app-button',
   standalone: true,
   template: `
-    <button 
-      [type]="type()"  
-      [disabled]="isDisable()"
-      [attr.aria-disabled]="isDisable()"
-      [attr.aria-label]="ariaLabel() || null"
-      [class]="variant()"
-      (click)="clicked.emit($event)">
+    @if(isVisible()){
+      <button 
+        [type]="type()"  
+        [disabled]="isDisable()"
+        [attr.aria-disabled]="isDisable()"
+        [attr.aria-label]="ariaLabel() || null"
+        [class]="variant()"
+        (click)="clicked.emit($event)">
       <ng-content />
     </button>
+  }
   `,
   styles: [`
     button {
@@ -98,4 +102,30 @@ export class ButtonComponent {
   variant = input<ButtonVariant>(ButtonVariant.DEFAULT);
   ariaLabel = input<string>('');
   clicked = output<MouseEvent>(); 
+  permission = input<string | null>(null);
+
+  authService = inject(AuthApiService)
+
+  isVisible = computed(() => {
+    const permissionVal : string | null = this.permission()
+
+    if(permissionVal === null){
+      return true
+    }
+
+    const requiredRoles = AuthorisePermission[permissionVal]
+      // Component is open to everyone
+      if (!requiredRoles || requiredRoles.length === 0) {
+        return true;
+      }
+      
+      // Check if the user has at least one of the required roles
+      const userRole = this.authService.currentUser()?.role;
+      
+      if(userRole === undefined || userRole === null){      
+        return false
+      }
+      
+      return requiredRoles.includes(userRole);
+  });
 }

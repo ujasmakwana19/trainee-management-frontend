@@ -37,12 +37,12 @@ const routes: Routes = [
         children : [
           {
             path: '', 
-            loadComponent: () => import('./features/trainee/component/trainee.component').then(m => m.TraineeComponent),
+            loadComponent: () => import('./features/trainee/component/view/trainee.view').then(m => m.TraineeComponent),
             data: {permission : PermissionKey.TRAINEE_BASE}
           },
           {
             path: RoutePath.ADD, 
-            loadComponent: () => import('./features/trainee/trainee.page').then(m => m.TraineePage),
+            loadComponent: () => import('./features/trainee/component/add/trainee.add').then(m => m.AddTraineeComponent),
             data: {permission : PermissionKey.TRAINEE_ADD}
           },
           {

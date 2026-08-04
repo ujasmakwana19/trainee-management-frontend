@@ -1,0 +1,56 @@
+<main>
+    <form [formGroup]="addTrainee">
+        <app-input
+            [label]="TextValue.FIRST_NAME"
+            type="text"
+            [placeholder]="TextValue.FIRST_NAME_PLACEHOLDER"
+            autocomplete="firstname"
+            [control]="addTrainee.get('firstName')"
+        />
+        <app-input
+            [label]="TextValue.LAST_NAME"
+            type="text"
+            [placeholder]="TextValue.LAST_NAME_PLACEHOLDER"
+            autocomplete="lastname"
+            [control]="addTrainee.get('lastName')"
+        />
+        <app-input
+            [label]="TextValue.EMAIL_LABEL"
+            type="email"
+            [placeholder]="TextValue.EMAIL_LABEL"
+            autocomplete="email"
+            [control]="addTrainee.get('email')"
+        />
+        <app-input
+            [label]="TextValue.TECH_STACK"
+            type="text"
+            [placeholder]="TextValue.TECH_STACK_PLACEHOLDER"
+            autocomplete="tech-stack"
+            [control]="addTrainee.get('techStack')"
+        />
+        <app-input
+            [label]="TextValue.PASS_LABEL"
+            type="password"
+            [placeholder]="TextValue.PASS_PLACEHOLDER"
+            [control]="addTrainee.get('password')"
+        />
+        <app-dropdown
+            [label]="TextValue.TRAINEE_STATUS"
+            placeholder="Select Status"
+            [options]="statusOptions"
+            [control]="addTrainee.get('status')"
+        />
+    
+        <div class="form-actions">
+            <app-button
+                [type]="ButtonType.SUBMIT"
+                [isDisable]="addTrainee.invalid || isClicked()"
+                [variant]="ButtonVarient.SAVE"
+                (clicked)="onSubmit()">
+                {{TextValue.SAVE}}
+            </app-button>
+        </div>
+    </form>
+        
+    
+</main>
