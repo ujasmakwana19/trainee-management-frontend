@@ -9,6 +9,7 @@ import { ThemeService } from '../core/services/theme.service';
   template: `
       <app-button 
         [type] = "ButtonType.BUTTON"
+        [ariaLabel]="ariaLabel()"
         (clicked)="_themeService.toggleTheme()">
         
           @if (_themeService.theme() === 'dark') {
@@ -32,4 +33,8 @@ export class ThemeToggleComponent {
   }
 
   protected ButtonType = ButtonType;
+
+  protected ariaLabel = computed(() => 
+    this._themeService.theme() === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'
+  );
 }

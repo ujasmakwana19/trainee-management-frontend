@@ -5,6 +5,9 @@ export const RoutePath  = {
     SUBMISSION_BASE : 'submission',
     REVIEW_BASE : 'review',
 
+    ADD : 'add',
+    EDIT : 'edit',
+
     AUTH : 'login',
     USER_PROFILE_BASE : 'user-profile',
 

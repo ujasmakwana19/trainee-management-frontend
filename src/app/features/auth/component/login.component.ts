@@ -6,6 +6,7 @@ import { ButtonComponent, ButtonType } from '../../../shared/button.component';
 import { AuthApiService } from '../../../core/services/auth/auth.service';
 import { Router } from '@angular/router';
 import { RoutePath } from '../../../core/route.constant';
+import { TextValue } from '../../../shared/text.localizer';
 
 @Component({
   selector: 'app-login',
@@ -17,6 +18,7 @@ import { RoutePath } from '../../../core/route.constant';
 
 export class LoginComponent {
   ButtonType = ButtonType;
+  TextValue = TextValue
   private authService = inject(AuthApiService);
   private router = inject(Router)
   isClicked = signal<boolean>(false)

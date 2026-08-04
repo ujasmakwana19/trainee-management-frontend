@@ -5,11 +5,11 @@ export enum ButtonType {
   SUBMIT = "submit"
 }
 
-export enum ButtonVariant  {
+export enum ButtonVariant {
   DEFAULT = 'default',
-  DANGER = 'danger' ,
-  SAVE =  'save'
-};
+  DANGER = 'danger',
+  SAVE = 'save'
+}
 
 @Component({
   selector: 'app-button',
@@ -18,6 +18,8 @@ export enum ButtonVariant  {
     <button 
       [type]="type()"  
       [disabled]="isDisable()"
+      [attr.aria-disabled]="isDisable()"
+      [attr.aria-label]="ariaLabel() || null"
       [class]="variant()"
       (click)="clicked.emit($event)">
       <ng-content />
@@ -25,61 +27,68 @@ export enum ButtonVariant  {
   `,
   styles: [`
     button {
+      min-width: 2.75rem;  
+      min-height: 2.75rem;
       padding: 0.5rem 0.875rem;
       border-radius: 6px;
-      border: none;
+      border: 2px solid transparent;
       cursor: pointer;
-      font-weight: 550;
-      font-size: 0.9375rem;
+      font-weight: 600;
+      font-size: 0.98rem;
+      line-height: 1.25;
       color: #ffffff;
-      background: var(--btn-color);
-      transition: background-color 0.15s ease, transform 0.05s ease, opacity 0.15s ease, box-shadow 0.15s ease;
+      background: var(--btn-color, #0056b3);
+      transition: background-color 0.15s ease, opacity 0.15s ease, box-shadow 0.15s ease, transform 0.05s ease;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 0.5rem;
+      
+      outline: none;
+    }
+
+    button:focus-visible {
+      outline: 3px solid #005fcc;
+      outline-offset: 2px;
+      box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.9);
     }
 
     button:hover:not(:disabled) {
       opacity: 0.92;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     }
 
     button:active:not(:disabled) {
-      transform: scale(0.80);
+      transform: scale(0.96);
     }
 
     button:disabled {
-      opacity: 0.5;
+      opacity: 0.6; 
       cursor: not-allowed;
       box-shadow: none;
     }
 
     button.danger {
-      background: var(--btn-danger-bg);
+      background: var(--btn-danger-bg, #dc3545);
     }
     button.danger:hover:not(:disabled) {
-      background: var(--btn-danger-hover);
+      background: var(--btn-danger-hover, #bb2d3b);
     }
 
     button.save {
-      background: var(--btn-save-bg);
+      background: var(--btn-save-bg, #198754);
     }
     button.save:hover:not(:disabled) {
-      background: var(--btn-save-hover);
-    }
-    .btn-spinner {
-      display: inline-block;
-      width: 16px;
-      height: 16px;
-      border: 2px solid rgba(255, 255, 255, 0.4);
-      border-top-color: #fff;
-      border-radius: 50%;
-      animation: spin 0.6s linear infinite;
+      background: var(--btn-save-hover, #157347);
     }
 
-    @keyframes spin {
-      to { transform: rotate(360deg); }
+    @media (forced-colors: active) {
+      button {
+        border: 2px solid ButtonText;
+      }
+      button:focus-visible {
+        outline: 3px solid Highlight;
+      }
     }
   `]
 })
@@ -87,5 +96,6 @@ export class ButtonComponent {
   type = input<ButtonType>(ButtonType.BUTTON);
   isDisable = input<boolean>(false);
   variant = input<ButtonVariant>(ButtonVariant.DEFAULT);
+  ariaLabel = input<string>('');
   clicked = output<MouseEvent>(); 
 }

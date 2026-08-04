@@ -44,14 +44,18 @@ const routeGuard = (
         return router.createUrlTree([RoutePath.AUTH])
     }
     
-    const urlOfRoute = route.url[0].path
-
+    const permission = route.data['permission'] ?? undefined;
+    
     if(
-        AuthorisePermission[urlOfRoute].length === 0 || 
-        AuthorisePermission[urlOfRoute].includes(currentUserRole)
+        permission == undefined
     ){
         return true
     }
 
+    const allowedRoles = AuthorisePermission[permission] ?? [];
+    
+    if(allowedRoles.length === 0 || allowedRoles.includes(currentUserRole))
+      return true
+     
     return router.createUrlTree([RoutePath.HOME])
 };

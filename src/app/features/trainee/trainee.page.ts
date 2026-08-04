@@ -1,16 +1,13 @@
-import { Component, inject } from "@angular/core";
-import { TraineeService } from "../../core/services/trainee/trainee.service";
-import { TraineeComponent } from "./component/trainee.component";
+import { Component } from "@angular/core";
+import { RouterOutlet } from "@angular/router";
 
 @Component({
     selector: 'app-trainee',
     standalone:true,
-    imports: [TraineeComponent],
-    template : `<trainee-view />`,
+    imports: [RouterOutlet],
+    template : `<router-outlet />`,
     styles : ``
 })
 
 export class TraineePage {
-
-
 }

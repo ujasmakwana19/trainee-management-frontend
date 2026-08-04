@@ -26,6 +26,7 @@ export class ModuleComponent {
   private authService = inject(AuthApiService);
 
   routeLink = input.required<string>();
+  permission = input.required<string>();
   classType = input.required<string>()
 
 
@@ -34,7 +35,7 @@ export class ModuleComponent {
   exact = input<boolean>(false);
 
   isVisible = computed(() => {
-    const requiredRoles = AuthorisePermission[this.routeLink()]
+    const requiredRoles = AuthorisePermission[this.permission()]
     
     // Component is open to everyone
     if (!requiredRoles || requiredRoles.length === 0) {

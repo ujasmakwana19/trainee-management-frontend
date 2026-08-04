@@ -1,39 +1,41 @@
-<div class="login-page">
-  <div class="theme-toggle-wrap">
-    <app-theme-button />
-  </div>
-
-  <div class="login-card">
-    <h2>Trainee Management</h2>
-    <p class="subtitle">Log in to continue</p>
-
-    <form [formGroup]="loginForm">
+<main>
+  <div class="login-page">
+    <div class="theme-toggle-wrap">
+      <app-theme-button />
+    </div>
+    
+    <div class="login-card">
+      <h2>{{TextValue.BRAND_TITLE}}</h2>
+      <p class="subtitle">{{TextValue.LOGIN_FORM_DESCRIPTION}}</p>
       
-      <app-input
-        label="Email"
+      <form [formGroup]="loginForm">
+        
+        <app-input
+        [label]="TextValue.EMAIL_LABEL"
         type="email"
-        placeholder="you@example.com"
+        [placeholder]="TextValue.EMAIL_PLACEHOLDER"
         autocomplete="email"
         [control]="loginForm.get('email')"
       />
 
-      <app-input
-        label="Password"
-        type="password"
-        placeholder="password"
-        autocomplete="current-password"
-        [control]="loginForm.get('password')"
-      />
+    <app-input
+    [label]="TextValue.PASS_LABEL"
+    type="password"
+    [placeholder]="TextValue.PASS_PLACEHOLDER"
+    autocomplete="current-password"
+    [control]="loginForm.get('password')"
+    />
 
-      <div class="form-actions">
-        <app-button
-          [type]="ButtonType.SUBMIT"
-          [isDisable]="loginForm.invalid || isClicked()"
-          (clicked)="onSubmit()">
-          Login
-        </app-button>
+    <div class="form-actions">
+      <app-button
+              [type]="ButtonType.SUBMIT"
+              [isDisable]="loginForm.invalid || isClicked()"
+              (clicked)="onSubmit()">
+              {{TextValue.LOGIN}}
+            </app-button>
+          </div>
+        </form>
+        
       </div>
-    </form>
-    
   </div>
-</div>
+</main>

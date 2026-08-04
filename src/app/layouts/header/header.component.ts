@@ -5,6 +5,8 @@ import { ButtonComponent, ButtonType, ButtonVariant } from "../../shared/button.
 import { Router } from "@angular/router";
 import { AuthApiService } from "../../core/services/auth/auth.service";
 import { RoutePath } from "../../core/route.constant";
+import { PermissionKey } from "../../core/permission.constant";
+import { TextValue } from "../../shared/text.localizer";
 
 @Component({
   selector: 'app-header',
@@ -13,11 +15,11 @@ import { RoutePath } from "../../core/route.constant";
   template: `
     <div class="header-container">
       <div class="header-left">
-        <span class="app-title">Dashboard</span>
+        <span class="app-title">{{TextValue.NAV_HEADER_TEXT}}</span>
       </div>
 
       <div class="header-right">
-        <app-module routeLink="/user-profile" classType="profile-link">
+        <app-module [routeLink]="RoutePath.USER_PROFILE_BASE" classType="profile-link" [permission]="PermissionKey.USER_PROFILE_BASE">
           <div class="avatar-badge" title="User Profile">
             <svg 
               xmlns="http://www.w3.org/2000/svg" 
@@ -39,7 +41,7 @@ import { RoutePath } from "../../core/route.constant";
             [type]="ButtonType.SUBMIT"
             [variant]="ButtonVariant.DANGER"
             (clicked)="logout()">
-            LOGOUT
+            {{TextValue.LOGOUT}}
           </app-button>
         </div>
 
@@ -105,6 +107,9 @@ import { RoutePath } from "../../core/route.constant";
 export class HeaderComponent {
   ButtonType = ButtonType;
   ButtonVariant = ButtonVariant;
+  TextValue = TextValue
+  RoutePath = RoutePath
+  PermissionKey = PermissionKey
   authService = inject(AuthApiService);
   router = inject(Router);
 
