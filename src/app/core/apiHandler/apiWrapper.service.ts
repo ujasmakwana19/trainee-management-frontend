@@ -41,7 +41,7 @@ export class ApiHandler {
     
 
     // GET API 
-    getApi<T>(pathToHit : string, isRetry = false) : Observable<ApiResponse<T>>{
+    getApi<TResponse>(pathToHit : string, isRetry = false) : Observable<ApiResponse<TResponse>>{
 
         if(!this.authService.isAuthenticated()){
             this.router.navigate([RoutePath.AUTH])
@@ -51,13 +51,13 @@ export class ApiHandler {
 
         this.loader.show()
 
-        return this.http.get<ApiResponse<T>>(`${uri}${pathToHit}`).pipe(
-            switchMap((response : ApiResponse<T>) => {
+        return this.http.get<ApiResponse<TResponse>>(`${uri}${pathToHit}`).pipe(
+            switchMap((response : ApiResponse<TResponse>) => {
                 return of(response)
             }),
             catchError((errorResponse) => {
                 if(!errorResponse.error.success && errorResponse.error.errorCode === 4555 && !isRetry){
-                    return this.refreshAccessTokenOnExpiry<T>(this.getApi<T>(pathToHit, true))
+                    return this.refreshAccessTokenOnExpiry<TResponse>(this.getApi<TResponse>(pathToHit, true))
                 }
                 this.toaster.showError(errorResponse)
                 return EMPTY
@@ -96,8 +96,65 @@ export class ApiHandler {
     }
 
     // PUT API
-    putApi(){}
+    putApi<TRequest, TResponse>(
+        pathToHit : string , 
+        body : TRequest,
+        isRetry : boolean = false
+    ) : Observable<ApiResponse<TResponse>>
+    {
+        if(!this.authService.isAuthenticated()){
+            this.router.navigate([RoutePath.AUTH])
+            this.toaster.showMessage(ERROR.SESSION_EXPIRED);
+            return EMPTY
+        }
+
+        this.loader.show()
+
+        return this.http.put<ApiResponse<TResponse>>(
+            `${uri}${pathToHit}`, 
+            body,
+            {withCredentials: false}
+        ).pipe(
+            switchMap((response : ApiResponse<TResponse>) => {
+                return of(response)
+            }),
+            catchError((errorResponse) => {
+                if(!errorResponse.error.success && errorResponse.error.errorCode === 4555 && !isRetry){
+                    return this.refreshAccessTokenOnExpiry<TResponse>(this.putApi<TRequest, TResponse>(pathToHit, body, true))
+                }
+                this.toaster.showError(errorResponse)
+                return EMPTY
+            }),
+            finalize(() => this.loader.hide())
+        )
+    }
 
     // DELETE API
-    deleteApi(){}
+    deleteApi<TResponse>(pathToHit : string, isRetry : boolean = false): Observable<ApiResponse<TResponse>>{
+        if(!this.authService.isAuthenticated()){
+            this.router.navigate([RoutePath.AUTH])
+            this.toaster.showMessage(ERROR.SESSION_EXPIRED);
+            return EMPTY
+        }
+
+        this.loader.show()
+
+        return this.http.delete<ApiResponse<TResponse>>(
+            `${uri}${pathToHit}`, 
+            {withCredentials: false}
+        ).pipe(
+            switchMap((response : ApiResponse<TResponse>) => {
+                return of(response)
+            }),
+            catchError((errorResponse) => {
+                if(!errorResponse.error.success && errorResponse.error.errorCode === 4555 && !isRetry){
+                    return this.refreshAccessTokenOnExpiry<TResponse>(this.deleteApi<TResponse>(pathToHit, true))
+                }
+                this.toaster.showError(errorResponse)
+                return EMPTY
+            }),
+            finalize(() => this.loader.hide())
+        ) 
+
+    }
 }

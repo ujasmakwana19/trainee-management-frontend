@@ -1,0 +1,11 @@
+<div class="page-container">
+    <div class="header-actions">
+        <app-button [type]="ButtonType.BUTTON" (clicked)="router.navigate([RoutePath.TRAINEE_BASE, RoutePath.ADD])"
+            [permission]="PermissionKey.TRAINEE_ADD">
+            {{TextValue.ADD}}
+        </app-button>
+    </div>
+
+    <app-data-table [data]="traineeService.trainees()" [columns]="columns" [actions]="actions" trackByProperty="id"
+        emptyText="No trainees found." />
+</div>

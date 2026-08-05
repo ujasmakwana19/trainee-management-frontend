@@ -96,12 +96,6 @@ import { TextValue } from "../../shared/text.localizer";
       width: 22px;
       height: 22px;
     }
-
-    .profile-link {
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-    }
   `]
 })
 export class HeaderComponent {

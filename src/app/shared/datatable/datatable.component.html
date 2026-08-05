@@ -1,0 +1,63 @@
+<div class="table-card">
+      <table class="data-table">
+        <thead>
+          <tr>
+            @for (col of columns(); track col.key) {
+              <th>{{ col.header }}</th>
+            }
+            @if (actions().length > 0) {
+              <th class="actions-column">Actions</th>
+            }
+          </tr>
+        </thead>
+        <tbody>
+          @for (row of data(); track trackByFn(row)) {
+            <tr>
+              @for (col of columns(); track col.key) {
+                <td>
+                  @switch (col.type) {
+                    @case ('status') {
+                      <span [class]="'status-badge ' + (col.getStatusClass ? col.getStatusClass(row) : '')">
+                        {{ col.format ? col.format(row) : row[col.key] }}
+                      </span>
+                    }
+                    @case ('badge') {
+                      <span class="tech-badge">
+                        {{ col.format ? col.format(row) : row[col.key] }}
+                      </span>
+                    }
+                    @default {
+                      <span [class.font-medium]="$first" [class.text-muted]="!$first">
+                        {{ col.format ? col.format(row) : row[col.key] }}
+                      </span>
+                    }
+                  }
+                </td>
+              }
+              @if (actions().length > 0) {
+                <td class="actions-column">
+                    <div class="actions-cell">
+                    @for (action of actions(); track action.label) {
+                        <app-button
+                        [type]="ButtonType.BUTTON"
+                        [variant]="action.variant"
+                        [permission]="action.permission"
+                        (clicked)="action.onClick(row)"
+                        >
+                        {{ action.label }}
+                        </app-button>
+                    }
+                    </div>
+                </td>
+              }
+            </tr>
+          } @empty {
+            <tr>
+              <td [attr.colspan]="columns().length + (actions().length > 0 ? 1 : 0)" class="empty-state">
+                {{ emptyText() }}
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>

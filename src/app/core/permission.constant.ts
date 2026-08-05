@@ -36,6 +36,8 @@ export const AuthorisePermission  : PermissionHash = {
     [PermissionKey.REVIEW_BASE] :  [],
 
     [PermissionKey.TRAINEE_ADD] : [UserRole.Mentor, UserRole.Admin],
+    [PermissionKey.TRAINEE_EDIT] : [UserRole.Mentor, UserRole.Admin],
+    [PermissionKey.TRAINEE_DELETE] : [ UserRole.Admin],
 
 
     [PermissionKey.USER_PROFILE_BASE] : [],

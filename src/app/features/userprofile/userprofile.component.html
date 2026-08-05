@@ -1,0 +1,37 @@
+<div class="profile-card">
+  <div class="profile-field">
+    <span class="label">Username</span>
+    <span class="value">{{ userProfileService.userProfile()?.username }}</span>
+  </div>
+
+  <div class="profile-field">
+    <span class="label">First Name</span>
+    <span class="value">
+      {{ userProfileService.userProfile()?.firstName }} 
+    </span>
+  </div>
+  
+  <div class="profile-field">
+    <span class="label">Last Name</span>
+    <span class="value">
+      {{ userProfileService.userProfile()?.lastName }} 
+    </span>
+  </div>
+
+  <div class="profile-field">
+    <span class="label">Email</span>
+    <span class="value">{{ userProfileService.userProfile()?.email }}</span>
+  </div>
+
+  <div class="profile-field">
+    <span class="label">Role</span>
+    <span class="value">
+      {{ UserRole[userProfileService.userProfile()?.role!] }}
+    </span>
+  </div>
+
+  <div class="profile-field">
+    <span class="label">Tech Stack</span>
+    <span class="value">{{ userProfileService.userProfile()?.techStack }}</span>
+  </div>
+</div>

@@ -1,0 +1,51 @@
+<main>
+    <form [formGroup]="updateTrainee">
+        <app-input
+            [label]="TextValue.FIRST_NAME"
+            type="text"
+            [placeholder]="TextValue.FIRST_NAME_PLACEHOLDER"
+            autocomplete="firstname"
+            [control]="updateTrainee.get('firstName')"
+        />
+        <app-input
+            [label]="TextValue.LAST_NAME"
+            type="text"
+            [placeholder]="TextValue.LAST_NAME_PLACEHOLDER"
+            autocomplete="lastname"
+            [control]="updateTrainee.get('lastName')"
+        />
+        <app-input
+            [label]="TextValue.EMAIL_LABEL"
+            type="email"
+            [placeholder]="TextValue.EMAIL_LABEL"
+            autocomplete="email"
+            [control]="updateTrainee.get('email')"
+        />
+        <app-input
+            [label]="TextValue.TECH_STACK"
+            type="text"
+            [placeholder]="TextValue.TECH_STACK_PLACEHOLDER"
+            autocomplete="tech-stack"
+            [control]="updateTrainee.get('techStack')"
+        />
+        
+        <app-dropdown
+            [label]="TextValue.TRAINEE_STATUS"
+            placeholder="Select Status"
+            [options]="statusOptions"
+            [control]="updateTrainee.get('status')"
+        />
+    
+        <div class="form-actions">
+            <app-button
+                [type]="ButtonType.SUBMIT"
+                [isDisable]="updateTrainee.invalid || isClicked()"
+                [variant]="ButtonVarient.SAVE"
+                (clicked)="onSubmit()">
+                {{TextValue.UPDATE}}
+            </app-button>
+        </div>
+    </form>
+        
+    
+</main>

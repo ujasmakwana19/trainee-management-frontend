@@ -8,6 +8,8 @@ export const RoutePath  = {
     ADD : 'add',
     EDIT : 'edit',
 
+    PARMAS_ID : ':id',
+
     AUTH : 'login',
     USER_PROFILE_BASE : 'user-profile',
 

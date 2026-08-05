@@ -1,224 +1,119 @@
-import { Component, inject, OnInit } from "@angular/core";
-import { TraineeService } from "../../../../core/services/trainee/trainee.service";
-import { TraineeResponse, TraineeStatus } from "../../../../core/services/trainee/trainee.model";
-import { ButtonComponent, ButtonType, ButtonVariant } from "../../../../shared/button.component";
-import { Router } from "@angular/router";
-import { RoutePath } from "../../../../core/route.constant";
-import { PermissionKey } from "../../../../core/permission.constant";
+  import { Component, inject, OnInit, signal } from "@angular/core";
+  import { TraineeService } from "../../../../core/services/trainee/trainee.service";
+  import { TraineeResponse, TraineeStatus } from "../../../../core/services/trainee/trainee.model";
+  import { ButtonComponent, ButtonType, ButtonVariant } from "../../../../shared/button.component";
+  import { Router } from "@angular/router";
+  import { RoutePath } from "../../../../core/route.constant";
+  import { AuthorisePermission, PermissionKey } from "../../../../core/permission.constant";
+  import { DataTableComponent, TableColumn, TableAction } from "../../../../shared/datatable/datatable.component";
+  import { TextValue } from "../../../../shared/text.localizer";
+  import { ToasterService } from "../../../../core/services/toaster/toaster.service";
+  import { SUCCESS } from "../../../../core/message.localizer";
+import { AuthApiService } from "../../../../core/services/auth/auth.service";
 
-@Component({
-  selector: 'trainee-view',
-  standalone: true,
-  imports: [ButtonComponent],
-  template: `
-    <div class="page-container">
-      <div class="header-actions">
-        <app-button
-          [type]="ButtonType.BUTTON"
-          (clicked)="router.navigate([RoutePath.TRAINEE_BASE, RoutePath.ADD])"
-          [permission]="PermissionKey.TRAINEE_ADD"
-        >
-          Add Trainee
-        </app-button>
-      </div>
+  @Component({
+    selector: 'trainee-view',
+    standalone: true,
+    imports: [ButtonComponent, DataTableComponent],
+    templateUrl: `trainee.view.html`,
+    styleUrl: `trainee.view.css` 
+  })
+  export class TraineeComponent implements OnInit {
+    ButtonType = ButtonType;
+    ButtonVariant = ButtonVariant
+    TextValue = TextValue
+    RoutePath = RoutePath;
+    PermissionKey = PermissionKey;
+    
+    router = inject(Router);
+    traineeService = inject(TraineeService);
+    authService = inject(AuthApiService)
 
-      <div class="table-card">
-        <table class="data-table">
-          <thead>
-            <tr>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Email</th>
-              <th>Tech Stack</th>
-              <th>Status</th>
-              <th class="actions-column">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            @for (t of this.traineeService.trainees(); track t.id) {
-              <tr>
-                <td class="font-medium">{{ t.firstName }} </td>
-                <td class="font-medium">{{ t.lastName }} </td>
-                <td class="text-muted">{{ t.email }}</td>
-                <td>
-                  <span class="tech-badge">{{ t.techStack }}</span>
-                </td>
-                <td>
-                  <span 
-                    class="status-badge" 
-                    [class]="{
-                      'status-active': t.status === TraineeStatus.Active,
-                      'status-inactive': t.status !== TraineeStatus.Active
-                    }">
-                    {{ TraineeStatus[t.status] }}
-                  </span>
-                </td>
-                <td class="actions-cell">
-                  <app-button
-                    [type]="ButtonType.BUTTON"
-                    [permission]="PermissionKey.TRAINEE_EDIT"
-                    (clicked)="onEdit(t.id)"
-                  >
-                    Edit
-                  </app-button>
-                  <app-button
-                    [type]="ButtonType.BUTTON"
-                    [variant]="ButtonVariant.DANGER"
-                    [permission]="PermissionKey.TRAINEE_DELETE"
-                    (clicked)="onDelete(t.id)"
-                  >
-                    Delete
-                  </app-button>
-                </td>
-              </tr>
-            } @empty {
-              <tr>
-                <td colspan="5" class="empty-state">
-                  No trainees found.
-                </td>
-              </tr>
-            }
-          </tbody>
-        </table>
-      </div>
-    </div>
-  `,
-  styles: [`
-    .page-container {
-      display: flex;
-      flex-direction: column;
-      gap: 1.25rem;
-      width: 100%;
+    isClicked = signal<boolean>(false)
+    toasterService = inject(ToasterService)
+
+    columns: TableColumn<TraineeResponse>[] = [
+      {
+        key: 'firstName',
+        header: 'First Name',
+        format: (row) => `${row.firstName}`
+      },
+      {
+        key: 'lastName',
+        header: 'Last Name',
+        format: (row) => `${row.lastName}`
+      },
+      {
+        key: 'email',
+        header: 'Email'
+      },
+      {
+        key: 'techStack',
+        header: 'Tech Stack',
+        type: 'badge'
+      },
+      {
+        key: 'status',
+        header: 'Status',
+        type: 'status',
+        format: (row) => TraineeStatus[row.status],
+        getStatusClass: (row) => row.status === TraineeStatus.Active ? 'status-active' : 'status-inactive'
+      }
+    ];
+
+    actions: TableAction<TraineeResponse>[] = [
+      {
+        label: TextValue.EDIT,
+        variant : ButtonVariant.DEFAULT,
+        permission: PermissionKey.TRAINEE_EDIT,
+        onClick: (row) => this.router.navigate([RoutePath.TRAINEE_BASE, RoutePath.EDIT, row.id])
+      },
+      {
+        label: TextValue.DELETE,
+        variant: ButtonVariant.DANGER,
+        permission: PermissionKey.TRAINEE_DELETE,
+        onClick: (row) => this.onDelete(row)
+      }
+    ];
+
+    isActionExists() : void {
+        const actionsToCheck = this.actions
+        for (let i = 0; i < actionsToCheck.length; i++) {
+          const permission = actionsToCheck[i].permission;
+
+          const userRole = this.authService.currentUser()?.role
+
+          if(userRole === undefined || userRole === null){      
+            this.actions = []
+          }
+          else if(AuthorisePermission[permission].includes(userRole)){
+            break;
+          }
+
+          if(i == actionsToCheck.length - 1){
+            this.actions = []
+          }
+          
+        }
     }
 
-    .header-actions {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
+
+    ngOnInit() {
+      this.isActionExists();
+      this.traineeService.getAll();
     }
 
-    .table-card {
-      background: var(--surface-color);
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      overflow-x: auto;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    }
-
-    .data-table {
-      width: 100%;
-      border-collapse: collapse;
-      text-align: left;
-      font-size: 0.875rem;
-    }
-
-    .data-table th, 
-    .data-table td {
-      padding: 0.875rem 1.25rem;
-      border-bottom: 1px solid var(--border-color);
-    }
-
-    .data-table th {
-      background: rgba(0, 0, 0, 0.02);
-      color: var(--text-muted);
-      font-weight: 600;
-      text-transform: uppercase;
-      font-size: 0.75rem;
-      letter-spacing: 0.05em;
-    }
-
-    [data-theme='dark'] .data-table th {
-      background: rgba(255, 255, 255, 0.02);
-    }
-
-    .data-table tbody tr:last-child td {
-      border-bottom: none;
-    }
-
-    .data-table tbody tr:hover {
-      background: rgba(0, 0, 0, 0.015);
-    }
-
-    [data-theme='dark'] .data-table tbody tr:hover {
-      background: rgba(255, 255, 255, 0.015);
-    }
-
-    .font-medium {
-      font-weight: 500;
-      color: var(--text-color);
-    }
-
-    .text-muted {
-      color: var(--text-muted);
-    }
-
-    .actions-column {
-      text-align: right;
-    }
-
-    .actions-cell {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .tech-badge {
-      display: inline-block;
-      padding: 0.25rem 0.5rem;
-      border-radius: 4px;
-      background: rgba(79, 70, 229, 0.1);
-      color: var(--primary-color);
-      font-size: 0.75rem;
-      font-weight: 500;
-    }
-
-    .status-badge {
-      display: inline-flex;
-      align-items: center;
-      padding: 0.25rem 0.625rem;
-      border-radius: 9999px;
-      font-size: 0.75rem;
-      font-weight: 600;
-    }
-
-    .status-active {
-      background-color: rgba(22, 163, 74, 0.15);
-      color: var(--btn-save-bg);
-    }
-
-    .status-inactive {
-      background-color: rgba(239, 68, 68, 0.15);
-      color: var(--error-color);
-    }
-
-    .empty-state {
-      text-align: center;
-      color: var(--text-muted);
-      padding: 2rem !important;
-    }
-  `]
-})
-export class TraineeComponent implements OnInit {
-  ButtonType = ButtonType;
-  ButtonVariant = ButtonVariant;
-  RoutePath = RoutePath;
-  router = inject(Router);
-  traineeService = inject(TraineeService);
-  TraineeStatus = TraineeStatus;
-  PermissionKey = PermissionKey;
-
-  ngOnInit() {
-    this.traineeService.getAll();
-  }
-
-  onEdit(id: string | number) {
-    this.router.navigate([RoutePath.TRAINEE_BASE, RoutePath.EDIT, id]);
-  }
-
-  onDelete(id: string | number) {
-    if (confirm("Are you sure you want to delete this trainee?")) {
-      // Execute delete logic via service
+    private onDelete(trainee: TraineeResponse) {
+      if (confirm(`Are you sure you want to delete Trainee`)) {
+        this.isClicked.set(true)
+        this.traineeService.deleteTrainee(trainee.id).subscribe({
+          complete: (() =>  {
+            this.isClicked.set(false)
+            this.toasterService.showMessage(SUCCESS.TRAINEE_DELETED)
+          }),
+        })
+        console.log('Trainee Deleted Successfully');
+        
+      }
     }
   }
-}

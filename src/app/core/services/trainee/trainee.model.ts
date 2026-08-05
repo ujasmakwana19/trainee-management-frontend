@@ -7,7 +7,6 @@ export interface TraineeResponse  {
     email : string,
     techStack : string,
     status : TraineeStatus
-
 }
 
 export enum TraineeStatus {
@@ -20,11 +19,19 @@ export function allowedStatusValidator(control: AbstractControl): ValidationErro
   return allowedValues.includes(control.value) ? null : { invalidStatus: true };
 }
 
-export interface TraineeRequest {
+export interface TraineeCreateRequest {
     firstName : string,
     lastName : string,
     email : string,
     techStack : string,
     password : string,
+    status : TraineeStatus,
+}
+
+export interface TraineeUpdateRequest {
+    firstName : string,
+    lastName : string,
+    email : string,
+    techStack : string,
     status : TraineeStatus,
 }

@@ -46,8 +46,8 @@ const routes: Routes = [
             data: {permission : PermissionKey.TRAINEE_ADD}
           },
           {
-            path: RoutePath.EDIT, 
-            loadComponent: () => import('./features/trainee/trainee.page').then(m => m.TraineePage),
+            path: `${RoutePath.EDIT}/${RoutePath.PARMAS_ID}`, 
+            loadComponent: () => import('./features/trainee/component/edit/trainee.edit').then(m => m.EditTraineeComponent),
             data: {permission : PermissionKey.TRAINEE_EDIT}
           }
           

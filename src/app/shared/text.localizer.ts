@@ -8,10 +8,14 @@ export const TextValue = {
     SUBMISSIONS : "Submissions",
     REVIEWS : "Reviews",
     SAVE : "Save",
+    ADD : "Add",
+    UPDATE : "Update",
+    EDIT : "Edit",
+    DELETE : "Delete",
 
     // Major Parts
     BRAND_TITLE : "Trainee Portal",
-    NAV_HEADER_TEXT : "Dashboard",
+    NAV_HEADER_TEXT : "",
     LOGIN_FORM_DESCRIPTION : "Log in to continue",
 
     // Label

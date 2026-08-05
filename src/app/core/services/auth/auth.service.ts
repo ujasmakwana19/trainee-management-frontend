@@ -52,7 +52,7 @@ export class AuthApiService {
                 catchError((errorRes) => {                    
                     this.loaderService.hide();
                     this.toasterService.showError(errorRes)
-                    return throwError(() => new Error(errorRes.error.message));
+                    return EMPTY
                 })
             )
     }
