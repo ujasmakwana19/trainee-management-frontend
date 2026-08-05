@@ -35,26 +35,26 @@ import { AuthApiService } from "../../../../core/services/auth/auth.service";
     columns: TableColumn<TraineeResponse>[] = [
       {
         key: 'firstName',
-        header: 'First Name',
+        header: TextValue.FIRST_NAME,
         format: (row) => `${row.firstName}`
       },
       {
         key: 'lastName',
-        header: 'Last Name',
+        header: TextValue.LAST_NAME,
         format: (row) => `${row.lastName}`
       },
       {
         key: 'email',
-        header: 'Email'
+        header: TextValue.EMAIL_LABEL
       },
       {
         key: 'techStack',
-        header: 'Tech Stack',
+        header: TextValue.TECH_STACK,
         type: 'badge'
       },
       {
         key: 'status',
-        header: 'Status',
+        header: TextValue.TRAINEE_STATUS,
         type: 'status',
         format: (row) => TraineeStatus[row.status],
         getStatusClass: (row) => row.status === TraineeStatus.Active ? 'status-active' : 'status-inactive'
@@ -112,7 +112,6 @@ import { AuthApiService } from "../../../../core/services/auth/auth.service";
             this.toasterService.showMessage(SUCCESS.TRAINEE_DELETED)
           }),
         })
-        console.log('Trainee Deleted Successfully');
         
       }
     }

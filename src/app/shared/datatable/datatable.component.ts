@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter, input, signal } from "@angular/core";
 import { ButtonComponent, ButtonType, ButtonVariant } from "../button.component";
+import { TextValue } from "../text.localizer";
 
 export interface TableColumn<T = any> {
   key: keyof T & string;
@@ -24,13 +25,15 @@ export interface TableAction<T = any> {
   styleUrl: `datatable.component.css`
 })
 export class DataTableComponent<T = unknown> {
+    ButtonType = ButtonType;
+    TextValue = TextValue
+    
     data = input.required<T[]>();
     columns = input.required<TableColumn<T>[]>();
     actions = input<TableAction<T>[]>([]);
     trackByProperty = input<keyof T>('id' as keyof T);
-    emptyText = input<string>('No data available');
+    emptyText = input<string>(TextValue.COMPONENT_NORMAL_TABLE_VIEW);
 
-    ButtonType = ButtonType;
 
     trackByFn(row: T) {
         return row[this.trackByProperty()] ?? row;

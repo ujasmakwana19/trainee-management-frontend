@@ -17,6 +17,7 @@ export const TextValue = {
     BRAND_TITLE : "Trainee Portal",
     NAV_HEADER_TEXT : "",
     LOGIN_FORM_DESCRIPTION : "Log in to continue",
+    COMPONENT_NORMAL_TABLE_VIEW : "'No data available'",
 
     // Label
     EMAIL_LABEL : "Email",
@@ -32,6 +33,9 @@ export const TextValue = {
     FIRST_NAME_PLACEHOLDER : "John",
     LAST_NAME_PLACEHOLDER : "Doe",
     TECH_STACK_PLACEHOLDER : "Write you expertise",
+
+    // VIEW HEADER TABLE TEXT
+    ACTION_LABEL : "Actions",
 
 
 }
