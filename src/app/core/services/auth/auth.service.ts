@@ -5,7 +5,7 @@ import { AuthResponse, LoginCredentials, UserInfo } from "./auth.model";
 import { uri } from "../constant";
 import { LOGIN, LOGOUT, REFRESH } from "./auth.route";
 import { ToasterService } from "../toaster/toaster.service";
-import { SUCCESS } from "../../message.localizer";
+import { SUCCESS } from "../../toastermessage.localizer";
 import { LoaderService } from "../loader/loader.service";
 
 @Injectable({providedIn:'root'})

@@ -2,6 +2,7 @@ export const RoutePath  = {
     TRAINEE_BASE : 'trainee',
     MENTOR_BASE : 'mentor',
     TASK_BASE : 'task',
+    TASK_ASSIGNED_BASE : 'task-assigned',
     SUBMISSION_BASE : 'submission',
     REVIEW_BASE : 'review',
 

@@ -4,6 +4,7 @@ export const TextValue = {
     HOME : "Home",
     TRAINEE : "Trainee",
     MENTOR : "Mentor",
+    MANAGE_TASK : "Manage Tasks",
     TASK_ASSIGNED : "Task Assigned",
     SUBMISSIONS : "Submissions",
     REVIEWS : "Reviews",
@@ -17,7 +18,7 @@ export const TextValue = {
     BRAND_TITLE : "Trainee Portal",
     NAV_HEADER_TEXT : "",
     LOGIN_FORM_DESCRIPTION : "Log in to continue",
-    COMPONENT_NORMAL_TABLE_VIEW : "'No data available'",
+    TABLE_NO_RECORDS : "No Records Found",
 
     // Label
     EMAIL_LABEL : "Email",
@@ -25,7 +26,17 @@ export const TextValue = {
     FIRST_NAME : "First Name",
     LAST_NAME : "Last Name",
     TECH_STACK : "Tech Stack",
+    EXPERTISE_STACK : "Expertise",
     TRAINEE_STATUS : "Status",
+    MENTOR_STATUS : "Status",
+    TASK_TITLE : 'Title',
+    TASK_DESCRIPTION : 'Description',
+    TASK_TECHSTACK : "Expected Tech Stack",
+    TASK_DUE_DATE : "Due Date",
+    TASK_STATUS : "Status",
+
+    // Task Specific
+    CREATE_TASK : "Create",
 
     // PlaceHolder 
     EMAIL_PLACEHOLDER : "you@example.com",

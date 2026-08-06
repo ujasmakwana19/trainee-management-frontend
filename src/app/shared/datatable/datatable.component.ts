@@ -5,7 +5,7 @@ import { TextValue } from "../text.localizer";
 export interface TableColumn<T = any> {
   key: keyof T & string;
   header: string;
-  type?: 'text' | 'badge' | 'status';
+  type?: 'text' | 'badge' | 'status' | 'date';
   format?: (row: T) => string;
   getStatusClass?: (row: T) => string;
 }
@@ -32,7 +32,7 @@ export class DataTableComponent<T = unknown> {
     columns = input.required<TableColumn<T>[]>();
     actions = input<TableAction<T>[]>([]);
     trackByProperty = input<keyof T>('id' as keyof T);
-    emptyText = input<string>(TextValue.COMPONENT_NORMAL_TABLE_VIEW);
+    emptyText = input<string>(TextValue.TABLE_NO_RECORDS);
 
 
     trackByFn(row: T) {

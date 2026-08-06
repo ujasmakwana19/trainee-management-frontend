@@ -72,6 +72,7 @@
     font-weight: 500;
 }
 
+
 .status-badge {
     display: inline-flex;
     align-items: center;
@@ -79,6 +80,27 @@
     border-radius: 9999px;
     font-size: 0.75rem;
     font-weight: 600;
+    text-transform: capitalize;
+}
+
+.status-draft {
+    background-color: rgba(103, 152, 248, 0.15);
+    color: #d2d6db;
+}
+
+.status-published {
+    background-color: rgba(22, 163, 74, 0.15);
+    color: #15803d;
+}
+
+.status-closed {
+    background-color: rgba(239, 68, 68, 0.15);
+    color: #b91c1c;
+}
+
+.status-default {
+    background-color: rgba(156, 163, 175, 0.15);
+    color: #6b7280;
 }
 
 .status-active {

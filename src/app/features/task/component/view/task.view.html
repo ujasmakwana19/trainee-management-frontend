@@ -1,0 +1,10 @@
+<div class="page-container">
+    <div class="header-actions">
+        <app-button [type]="ButtonType.BUTTON" (clicked)="router.navigate([RoutePath.TASK_BASE, RoutePath.ADD])"
+            [permission]="PermissionKey.TASK_ADD">
+            {{TextValue.CREATE_TASK}}
+        </app-button>
+    </div>
+
+    <app-data-table [data]="taskService.tasks()" [columns]="columns" [actions]="actions" trackByProperty="id"/>
+</div>

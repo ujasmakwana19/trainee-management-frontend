@@ -37,7 +37,7 @@ const routes: Routes = [
         children : [
           {
             path: '', 
-            loadComponent: () => import('./features/trainee/component/view/trainee.view').then(m => m.TraineeComponent),
+            loadComponent: () => import('./features/trainee/component/view/trainee.view').then(m => m.TraineeViewComponent),
             data: {permission : PermissionKey.TRAINEE_BASE}
           },
           {
@@ -56,7 +56,24 @@ const routes: Routes = [
       { 
         path: RoutePath.MENTOR_BASE, 
         loadComponent: () => import('./features/mentor/mentor.page').then(m => m.MentorPage),
-        data : {permission : PermissionKey.MENTOR_BASE}
+        children : [
+          {
+            path: '', 
+            loadComponent: () => import('./features/mentor/component/view/mentor.view').then(m => m.MentorViewComponent),
+            data: {permission : PermissionKey.MENTOR_BASE}
+          },
+          {
+            path: RoutePath.ADD, 
+            loadComponent: () => import('./features/mentor/component/add/mentor.add').then(m => m.AddMentorComponent),
+            data: {permission : PermissionKey.MENTOR_ADD}
+          },
+          {
+            path: `${RoutePath.EDIT}/${RoutePath.PARMAS_ID}`, 
+            loadComponent: () => import('./features/mentor/component/edit/mentor.edit').then(m => m.EditMentorComponent),
+            data: {permission : PermissionKey.MENTOR_EDIT}
+          }
+          
+        ]
       },
       { 
         path: RoutePath.SUBMISSION_BASE, 
@@ -66,6 +83,28 @@ const routes: Routes = [
       {
         path : RoutePath.TASK_BASE,
         loadComponent : () => import('./features/task/task.page').then(m => m.TaskPage),
+        children : [
+          {
+            path: '', 
+            loadComponent: () => import('./features/task/component/view/task.view').then(m => m.TaskViewComponent),
+            data: {permission : PermissionKey.TASK_BASE}
+          },
+          {
+            path: RoutePath.ADD, 
+            loadComponent: () => import('./features/task/component/add/task.add').then(m => m.AddTaskComponent),
+            data: {permission : PermissionKey.TASK_ADD}
+          },
+          {
+            path: `${RoutePath.EDIT}/${RoutePath.PARMAS_ID}`, 
+            loadComponent: () => import('./features/task/component/edit/task.edit').then(m => m.EditTaskComponent),
+            data: {permission : PermissionKey.TASK_EDIT}
+          }
+          
+        ]
+      },
+      {
+        path : RoutePath.TASK_ASSIGNED_BASE,
+        loadComponent : () => import('./features/taskAssigned/taskAssigned.page').then(m => m.TaskAssigned),
         data : {permission : PermissionKey.TASK_BASE}
       },
       {

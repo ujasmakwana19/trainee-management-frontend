@@ -1,11 +1,13 @@
 import { Component } from "@angular/core";
+import { RouterOutlet } from "@angular/router";
 
 @Component({
-    selector : `app-task`,
+    selector : 'app-task',
     standalone : true,
-    imports : [],
-    template : `Task Content`
+    imports: [RouterOutlet],
+    template : `<router-outlet>`
 })
 
 export class TaskPage {
+
 }

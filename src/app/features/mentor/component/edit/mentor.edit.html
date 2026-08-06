@@ -1,0 +1,51 @@
+<main>
+    <form [formGroup]="updateMentor">
+        <app-input
+            [label]="TextValue.FIRST_NAME"
+            type="text"
+            [placeholder]="TextValue.FIRST_NAME_PLACEHOLDER"
+            autocomplete="firstname"
+            [control]="updateMentor.get('firstName')"
+        />
+        <app-input
+            [label]="TextValue.LAST_NAME"
+            type="text"
+            [placeholder]="TextValue.LAST_NAME_PLACEHOLDER"
+            autocomplete="lastname"
+            [control]="updateMentor.get('lastName')"
+        />
+        <app-input
+            [label]="TextValue.EMAIL_LABEL"
+            type="email"
+            [placeholder]="TextValue.EMAIL_LABEL"
+            autocomplete="email"
+            [control]="updateMentor.get('email')"
+        />
+        <app-input
+            [label]="TextValue.EXPERTISE_STACK"
+            type="text"
+            [placeholder]="TextValue.EXPERTISE_STACK"
+            autocomplete="expertise"
+            [control]="updateMentor.get('expertise')"
+        />
+        
+        <app-dropdown
+            [label]="TextValue.MENTOR_STATUS"
+            placeholder="Select Status"
+            [options]="statusOptions"
+            [control]="updateMentor.get('status')"
+        />
+    
+        <div class="form-actions">
+            <app-button
+                [type]="ButtonType.SUBMIT"
+                [isDisable]="updateMentor.invalid || isClicked()"
+                [variant]="ButtonVarient.SAVE"
+                (clicked)="onSubmit()">
+                {{TextValue.UPDATE}}
+            </app-button>
+        </div>
+    </form>
+        
+    
+</main>

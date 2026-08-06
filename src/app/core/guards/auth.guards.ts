@@ -6,7 +6,7 @@ import { RoutePath } from '../route.constant';
 import { UserRole } from '../services/auth/auth.model';
 import { AuthorisePermission } from '../permission.constant';
 import { ToasterService } from '../services/toaster/toaster.service';
-import { ERROR } from '../message.localizer';
+import { ERROR } from '../toastermessage.localizer';
 
 // Checks for the authentication
 // if not try to refreshToken 

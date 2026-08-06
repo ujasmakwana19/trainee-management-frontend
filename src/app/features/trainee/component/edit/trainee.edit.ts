@@ -10,10 +10,10 @@ import { DropdownComponent, DropdownOption } from '../../../../shared/dropdown.c
 import { TraineeService } from '../../../../core/services/trainee/trainee.service';
 import { ToasterService } from '../../../../core/services/toaster/toaster.service';
 import { TRAINEE_UPDATE } from '../../../../core/services/trainee/trainee.route';
-import { SUCCESS } from '../../../../core/message.localizer';
+import { SUCCESS } from '../../../../core/toastermessage.localizer';
 
 @Component({
-  selector: 'app-trainee-add',
+  selector: 'app-traintee-edit',
   standalone: true,
   imports: [ReactiveFormsModule, ButtonComponent, InputComponent, DropdownComponent],
   templateUrl: `trainee.edit.html`,

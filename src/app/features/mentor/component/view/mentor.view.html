@@ -1,0 +1,17 @@
+<div class="page-container">
+    <div class="header-actions">
+        <app-button 
+            [type]="ButtonType.BUTTON" 
+            (clicked)="router.navigate([RoutePath.MENTOR_BASE, RoutePath.ADD])"
+            [permission]="PermissionKey.MENTOR_ADD">
+            {{TextValue.ADD}}
+        </app-button>
+    </div>
+
+    <app-data-table 
+        [data]="mentorService.mentors()" 
+        [columns]="columns" 
+        [actions]="actions" 
+        trackByProperty="id" 
+    />
+</div>

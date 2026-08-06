@@ -1,0 +1,47 @@
+<main>
+    <form [formGroup]="addTask">
+        <app-input
+            [label]="TextValue.TASK_TITLE"
+            type="text"
+            [placeholder]="TextValue.TASK_TITLE"
+            [control]="addTask.get('title')"
+        />
+        <app-input
+            [label]="TextValue.TASK_DESCRIPTION"
+            type="text"
+            [placeholder]="TextValue.TASK_DESCRIPTION"
+            [control]="addTask.get('description')"
+        />
+        <app-input
+            [label]="TextValue.TASK_TECHSTACK"
+            type="email"
+            [placeholder]="TextValue.TASK_TECHSTACK"
+            [control]="addTask.get('expectedTechStack')"
+        />
+        <app-input
+            [label]="TextValue.TASK_DUE_DATE"
+            type="date"
+            [placeholder]="TextValue.TASK_DUE_DATE"
+            [control]="addTask.get('dueDate')"
+        />
+        
+        <app-dropdown
+            [label]="TextValue.TRAINEE_STATUS"
+            placeholder="Select Status"
+            [options]="statusOptions"
+            [control]="addTask.get('status')"
+        />
+    
+        <div class="form-actions">
+            <app-button
+                [type]="ButtonType.SUBMIT"
+                [isDisable]="addTask.invalid || isClicked()"
+                [variant]="ButtonVarient.SAVE"
+                (clicked)="onSubmit()">
+                {{TextValue.SAVE}}
+            </app-button>
+        </div>
+    </form>
+        
+    
+</main>

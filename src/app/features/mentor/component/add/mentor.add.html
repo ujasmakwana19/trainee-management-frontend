@@ -1,0 +1,56 @@
+<main>
+    <form [formGroup]="addMentor">
+        <app-input
+            [label]="TextValue.FIRST_NAME"
+            type="text"
+            [placeholder]="TextValue.FIRST_NAME_PLACEHOLDER"
+            autocomplete="firstname"
+            [control]="addMentor.get('firstName')"
+        />
+        <app-input
+            [label]="TextValue.LAST_NAME"
+            type="text"
+            [placeholder]="TextValue.LAST_NAME_PLACEHOLDER"
+            autocomplete="lastname"
+            [control]="addMentor.get('lastName')"
+        />
+        <app-input
+            [label]="TextValue.EMAIL_LABEL"
+            type="email"
+            [placeholder]="TextValue.EMAIL_LABEL"
+            autocomplete="email"
+            [control]="addMentor.get('email')"
+        />
+        <app-input
+            [label]="TextValue.EXPERTISE_STACK"
+            type="text"
+            [placeholder]="TextValue.EXPERTISE_STACK"
+            autocomplete="expertise"
+            [control]="addMentor.get('expertise')"
+        />
+        <app-input
+            [label]="TextValue.PASS_LABEL"
+            type="password"
+            [placeholder]="TextValue.PASS_PLACEHOLDER"
+            [control]="addMentor.get('password')"
+        />
+        <app-dropdown
+            [label]="TextValue.TRAINEE_STATUS"
+            placeholder="Select Status"
+            [options]="statusOptions"
+            [control]="addMentor.get('status')"
+        />
+    
+        <div class="form-actions">
+            <app-button
+                [type]="ButtonType.SUBMIT"
+                [isDisable]="addMentor.invalid || isClicked()"
+                [variant]="ButtonVarient.SAVE"
+                (clicked)="onSubmit()">
+                {{TextValue.SAVE}}
+            </app-button>
+        </div>
+    </form>
+        
+    
+</main>

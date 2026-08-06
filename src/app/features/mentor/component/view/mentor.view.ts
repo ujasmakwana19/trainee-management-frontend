@@ -1,24 +1,24 @@
 import { Component, inject, OnInit, signal } from "@angular/core";
-import { TraineeService } from "../../../../core/services/trainee/trainee.service";
-import { TraineeResponse, TraineeStatus } from "../../../../core/services/trainee/trainee.model";
-import { ButtonComponent, ButtonType, ButtonVariant } from "../../../../shared/button.component";
 import { Router } from "@angular/router";
+import { ButtonComponent, ButtonType, ButtonVariant } from "../../../../shared/button.component";
+import { DataTableComponent, TableAction, TableColumn } from "../../../../shared/datatable/datatable.component";
+import { TextValue } from "../../../../shared/text.localizer";
 import { RoutePath } from "../../../../core/route.constant";
 import { AuthorisePermission, PermissionKey } from "../../../../core/permission.constant";
-import { DataTableComponent, TableColumn, TableAction } from "../../../../shared/datatable/datatable.component";
-import { TextValue } from "../../../../shared/text.localizer";
-import { ToasterService } from "../../../../core/services/toaster/toaster.service";
-import { SUCCESS } from "../../../../core/toastermessage.localizer";
+import { MentorService } from "../../../../core/services/mentor/mentor.service";
 import { AuthApiService } from "../../../../core/services/auth/auth.service";
+import { ToasterService } from "../../../../core/services/toaster/toaster.service";
+import { MentorResponse, MentorStatus } from "../../../../core/services/mentor/mentor.model";
+import { SUCCESS } from "../../../../core/toastermessage.localizer";
 
   @Component({
-    selector: 'app-trainee-view',
+    selector: 'app-mentor-view',
     standalone: true,
     imports: [ButtonComponent, DataTableComponent],
-    templateUrl: `trainee.view.html`,
-    styleUrl: `trainee.view.css` 
+    templateUrl: `mentor.view.html`,
+    styleUrl: `mentor.view.css` 
   })
-  export class TraineeViewComponent implements OnInit {
+  export class MentorViewComponent implements OnInit {
     ButtonType = ButtonType;
     ButtonVariant = ButtonVariant
     TextValue = TextValue
@@ -26,13 +26,13 @@ import { AuthApiService } from "../../../../core/services/auth/auth.service";
     PermissionKey = PermissionKey;
     
     router = inject(Router);
-    traineeService = inject(TraineeService);
+    mentorService = inject(MentorService);
     authService = inject(AuthApiService)
 
     isClicked = signal<boolean>(false)
     toasterService = inject(ToasterService)
 
-    columns: TableColumn<TraineeResponse>[] = [
+    columns: TableColumn<MentorResponse>[] = [
       {
         key: 'firstName',
         header: TextValue.FIRST_NAME,
@@ -48,30 +48,30 @@ import { AuthApiService } from "../../../../core/services/auth/auth.service";
         header: TextValue.EMAIL_LABEL
       },
       {
-        key: 'techStack',
-        header: TextValue.TECH_STACK,
+        key: 'expertise',
+        header: TextValue.EXPERTISE_STACK,
         type: 'badge'
       },
       {
         key: 'status',
-        header: TextValue.TRAINEE_STATUS,
+        header: TextValue.MENTOR_STATUS,
         type: 'status',
-        format: (row) => TraineeStatus[row.status],
-        getStatusClass: (row) => row.status === TraineeStatus.Active ? 'status-active' : 'status-inactive'
+        format: (row) => MentorStatus[row.status],
+        getStatusClass: (row) => row.status === MentorStatus.Active ? 'status-active' : 'status-inactive'
       }
     ];
 
-    actions: TableAction<TraineeResponse>[] = [
+    actions: TableAction<MentorResponse>[] = [
       {
         label: TextValue.EDIT,
         variant : ButtonVariant.DEFAULT,
-        permission: PermissionKey.TRAINEE_EDIT,
-        onClick: (row) => this.router.navigate([RoutePath.TRAINEE_BASE, RoutePath.EDIT, row.id])
+        permission: PermissionKey.MENTOR_EDIT,
+        onClick: (row) => this.router.navigate([RoutePath.MENTOR_BASE, RoutePath.EDIT, row.id])
       },
       {
         label: TextValue.DELETE,
         variant: ButtonVariant.DANGER,
-        permission: PermissionKey.TRAINEE_DELETE,
+        permission: PermissionKey.MENTOR_DELETE,
         onClick: (row) => this.onDelete(row)
       }
     ];
@@ -100,16 +100,16 @@ import { AuthApiService } from "../../../../core/services/auth/auth.service";
 
     ngOnInit() {
       this.isActionExists();
-      this.traineeService.getAll();
+      this.mentorService.getAll();
     }
 
-    private onDelete(trainee: TraineeResponse) {
-      if (confirm(`Are you sure you want to delete Trainee`)) {
+    private onDelete(mentor: MentorResponse) {
+      if (confirm(`Are you sure you want to delete?`)) {
         this.isClicked.set(true)
-        this.traineeService.deleteTrainee(trainee.id).subscribe({
+        this.mentorService.deleteMentor(mentor.id).subscribe({
           complete: (() =>  {
             this.isClicked.set(false)
-            this.toasterService.showMessage(SUCCESS.TRAINEE_DELETED)
+            this.toasterService.showMessage(SUCCESS.MENTOR_DELETED)
           }),
         })
         
