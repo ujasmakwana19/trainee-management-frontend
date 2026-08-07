@@ -9,6 +9,10 @@ export const SUCCESS = {
 
     TASK_DELETED : "Task Deleted Successfully",
     TASK_UPDATED : "Task Updated Successfully",
+
+    TASK_ASSIGNED_DELETED : "Task Assignment Deleted Successfully",
+    TASK_ASSIGNED_UPDATED : "Task Assignment Status Updated Successfully",
+
 }
 
 export const ERROR = {

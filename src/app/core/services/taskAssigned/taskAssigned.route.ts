@@ -1,0 +1,5 @@
+export const TASK_ASSIGN_GETALL = 'task-assignments/getall'
+export const TASK_ASSIGN_CREATE = 'task-assignments/'
+export const TASK_ASSIGN_DELETE = 'task-assignments/'
+export const TASK_ASSIGN_UPDATE = 'task-assignments/'
+export const TASK_ASSIGN_STATUS = '/status/'

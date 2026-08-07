@@ -1,0 +1,23 @@
+<main>
+    <form [formGroup]="updateTaskAssignment">
+        
+        <app-dropdown
+            label="Status"
+            placeholder="Select Status"
+            [options]="statusOptions"
+            [control]="updateTaskAssignment.get('status')">
+        </app-dropdown>
+    
+        <div class="form-actions">
+            <app-button
+                [type]="ButtonType.SUBMIT"
+                [isDisable]="updateTaskAssignment.invalid || isClicked()"
+                [variant]="ButtonVarient.SAVE"
+                (clicked)="onSubmit()">
+                {{TextValue.UPDATE}}
+            </app-button>
+        </div>
+    </form>
+        
+    
+</main>

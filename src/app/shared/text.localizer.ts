@@ -25,6 +25,9 @@ export const TextValue = {
     PASS_LABEL : "Password",
     FIRST_NAME : "First Name",
     LAST_NAME : "Last Name",
+    TRAINEE_FULL_NAME : "Trainee",
+    MENTOR_FULL_NAME : "Mentor",
+    SUBMISSION_URL : "Submission Url",
     TECH_STACK : "Tech Stack",
     EXPERTISE_STACK : "Expertise",
     TRAINEE_STATUS : "Status",
@@ -32,11 +35,16 @@ export const TextValue = {
     TASK_TITLE : 'Title',
     TASK_DESCRIPTION : 'Description',
     TASK_TECHSTACK : "Expected Tech Stack",
+    TASK_ASSIGN_DATE : "Assign Date",
+    TASK_SUBMITTED_DATE : "Submitted Date",
+    TASK_REMARK : "Remark",
     TASK_DUE_DATE : "Due Date",
     TASK_STATUS : "Status",
 
     // Task Specific
     CREATE_TASK : "Create",
+    ASSIGN_TASK : "Assign Task",
+    CREATE_SUBMISSION : "DO Submission",
 
     // PlaceHolder 
     EMAIL_PLACEHOLDER : "you@example.com",

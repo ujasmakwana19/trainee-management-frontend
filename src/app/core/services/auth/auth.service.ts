@@ -7,6 +7,8 @@ import { LOGIN, LOGOUT, REFRESH } from "./auth.route";
 import { ToasterService } from "../toaster/toaster.service";
 import { SUCCESS } from "../../toastermessage.localizer";
 import { LoaderService } from "../loader/loader.service";
+import { AuthorisePermission } from "../../permission.constant";
+import { TableAction } from "../../../shared/datatable/datatable.component";
 
 @Injectable({providedIn:'root'})
 export class AuthApiService {
@@ -78,5 +80,22 @@ export class AuthApiService {
             })
         );
     }
+
+    isActionExists<T>(actions : TableAction<T>[]) : boolean {
+      const actionsToCheck = actions
+      for (let i = 0; i < actionsToCheck.length; i++) {
+        const permission = actionsToCheck[i].permission;
+
+        const userRole = this.currentUser()?.role
+
+        if(userRole === undefined || userRole === null){      
+          return true
+        }
+        else if(AuthorisePermission[permission].includes(userRole)){
+          return false
+        }
+      }
+      return true
+  }
 }
 

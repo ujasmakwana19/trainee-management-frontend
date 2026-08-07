@@ -104,40 +104,22 @@ export class TaskViewComponent implements OnInit {
   ];
 
   ngOnInit() {
-    this.isActionExists();
-    this.taskService.getAll();
-  }
-
-  private isActionExists() : void {
-      const actionsToCheck = this.actions
-      for (let i = 0; i < actionsToCheck.length; i++) {
-        const permission = actionsToCheck[i].permission;
-
-        const userRole = this.authService.currentUser()?.role
-
-        if(userRole === undefined || userRole === null){      
-          this.actions = []
-        }
-        else if(AuthorisePermission[permission].includes(userRole)){
-          break;
-        }
-
-        if(i == actionsToCheck.length - 1){
-          this.actions = []
-        }
-        
-      }
+    if(this.authService.isActionExists<TaskResponse>(this.actions)){
+      this.actions = []
+    }
+    this.taskService.getAll().subscribe();
   }
 
   private onDelete(task: TaskResponse) {
     if (confirm(`Are you sure you want to delete?`)) {
       this.isClicked.set(true);
       this.taskService.deleteTask(task.id).subscribe({
-        complete: () => {
-          this.isClicked.set(false);
+        next : () => {
           this.toasterService.showMessage(SUCCESS.TASK_DELETED);
         },
-        error: () => this.isClicked.set(false),
+        complete: () => {
+          this.isClicked.set(false);
+        },
       });
     }
   }

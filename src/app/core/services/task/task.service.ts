@@ -12,19 +12,21 @@ export class TaskService {
     private taskSignal = signal<TaskResponse[]>([])
     
     readonly tasks = this.taskSignal.asReadonly();
-
-
-    private refresh() {
-        this.apiHandler.getApi<TaskResponse[]>(TASK_GETALL).subscribe({
-            next : (response : ApiResponse<TaskResponse[]>) => {
+    
+    getAll() : Observable<ApiResponse<TaskResponse[]>> {
+        return this.apiHandler.getApi<TaskResponse[]>(TASK_GETALL).pipe(
+            tap ((response : ApiResponse<TaskResponse[]>) => {
                 this.taskSignal.set(response.data)
-            }
+            })
+        )
+    }
+
+    private refreshGetAll() : void  {
+        this.getAll().subscribe({
+            next : () => {}
         })
     }
     
-    getAll() : void {
-        this.refresh()
-    }
 
     createTask(body : TaskCreateRequest) : Observable<ApiResponse<TaskResponse>> {
         return this.apiHandler.postApi<TaskCreateRequest, TaskResponse>(
@@ -35,7 +37,7 @@ export class TaskService {
 
     deleteTask(id : number) : Observable<ApiResponse<null>> {
         return this.apiHandler.deleteApi<null>(`${TASK_DELETE}${id}`).pipe(
-            tap(() => this.refresh())
+            tap(() => this.refreshGetAll())
         )
     }
 
@@ -46,8 +48,6 @@ export class TaskService {
         return this.apiHandler.putApi<TaskUpdateRequest, TaskResponse>(
             `${TASK_UPDATE}${id}`,
             body
-        ).pipe(
-            tap(() => this.refresh())
         )
     }
     

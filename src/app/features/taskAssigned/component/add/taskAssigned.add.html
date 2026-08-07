@@ -1,0 +1,62 @@
+<main>
+  <form [formGroup]="addTaskAssignment">
+
+    <app-dropdown
+      label="Trainee"
+      placeholder="Select Trainee"
+      [options]="traineeOptions()"
+      [control]="addTaskAssignment.get('traineeId')">
+    </app-dropdown>
+
+    <app-dropdown
+      label="Mentor"
+      placeholder="Select Mentor"
+      [options]="mentorOptions()"
+      [control]="addTaskAssignment.get('mentorId')">
+    </app-dropdown>
+
+    <app-dropdown
+      label="Task"
+      placeholder="Select Task"
+      [options]="taskOptions()"
+      [control]="addTaskAssignment.get('learningTaskId')">
+    </app-dropdown>
+
+    <app-input
+      label="Assigned Date"
+      type="date"
+      [control]="addTaskAssignment.get('assignedDate')">
+    </app-input>
+
+    <app-input
+      label="Due Date"
+      type="date"
+      [control]="addTaskAssignment.get('dueDate')">
+    </app-input>
+
+    <app-dropdown
+      label="Status"
+      placeholder="Select Status"
+      [options]="statusOptions"
+      [control]="addTaskAssignment.get('status')">
+    </app-dropdown>
+
+    <app-input
+      label="Remark"
+      type="text"
+      placeholder="Enter Remark"
+      [control]="addTaskAssignment.get('remark')">
+    </app-input>
+
+    <div class="form-actions">
+      <app-button
+        [type]="ButtonType.SUBMIT"
+        [variant]="ButtonVariant.SAVE"
+        [isDisable]="addTaskAssignment.invalid || isClicked()"
+        (clicked)="onSubmit()">
+        Save
+      </app-button>
+    </div>
+
+  </form>
+</main>

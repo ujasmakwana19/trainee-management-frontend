@@ -76,40 +76,23 @@ import { SUCCESS } from "../../../../core/toastermessage.localizer";
       }
     ];
 
-    isActionExists() : void {
-        const actionsToCheck = this.actions
-        for (let i = 0; i < actionsToCheck.length; i++) {
-          const permission = actionsToCheck[i].permission;
-
-          const userRole = this.authService.currentUser()?.role
-
-          if(userRole === undefined || userRole === null){      
-            this.actions = []
-          }
-          else if(AuthorisePermission[permission].includes(userRole)){
-            break;
-          }
-
-          if(i == actionsToCheck.length - 1){
-            this.actions = []
-          }
-          
-        }
-    }
-
 
     ngOnInit() {
-      this.isActionExists();
-      this.mentorService.getAll();
+      if(this.authService.isActionExists<MentorResponse>(this.actions)){
+        this.actions = []
+      }
+      this.mentorService.getAll().subscribe();
     }
 
     private onDelete(mentor: MentorResponse) {
       if (confirm(`Are you sure you want to delete?`)) {
         this.isClicked.set(true)
         this.mentorService.deleteMentor(mentor.id).subscribe({
+          next: (() => {
+            this.toasterService.showMessage(SUCCESS.MENTOR_DELETED)
+          }),
           complete: (() =>  {
             this.isClicked.set(false)
-            this.toasterService.showMessage(SUCCESS.MENTOR_DELETED)
           }),
         })
         

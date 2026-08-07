@@ -13,18 +13,21 @@ export class MentorService {
     
     readonly mentors = this.mentorSignal.asReadonly();
 
-
-    private refresh() {
-        this.apiHandler.getApi<MentorResponse[]>(MENTOR_GETALL).subscribe({
-            next : (response : ApiResponse<MentorResponse[]>) => {
+    
+    getAll() : Observable<ApiResponse<MentorResponse[]>> {
+        return this.apiHandler.getApi<MentorResponse[]>(MENTOR_GETALL).pipe(
+            tap ((response : ApiResponse<MentorResponse[]>) => {
                 this.mentorSignal.set(response.data)
-            }
+            })
+        )
+    }
+
+    private refreshGetAll() : void  {
+        this.getAll().subscribe({
+            next : () => {}
         })
     }
-    
-    getAll() : void {
-        this.refresh()
-    }
+        
 
     createMentor(body : MentorCreateRequest) : Observable<ApiResponse<MentorResponse>> {
         return this.apiHandler.postApi<MentorCreateRequest, MentorResponse>(
@@ -35,7 +38,7 @@ export class MentorService {
 
     deleteMentor(id : number) : Observable<ApiResponse<null>> {
         return this.apiHandler.deleteApi<null>(`${MENTOR_DELETE}${id}`).pipe(
-            tap(() => this.refresh())
+            tap(() => this.refreshGetAll())
         )
     }
 
@@ -46,8 +49,6 @@ export class MentorService {
         return this.apiHandler.putApi<MentorUpdateRequest, MentorResponse>(
             `${MENTOR_UPDATE}${id}`,
             body
-        ).pipe(
-            tap(() => this.refresh())
         )
     }
     

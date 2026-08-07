@@ -78,7 +78,24 @@ const routes: Routes = [
       { 
         path: RoutePath.SUBMISSION_BASE, 
         loadComponent: () => import('./features/submission/submission.page').then(m => m.SubmissionPage),
-        data : {permission : PermissionKey.SUBMISSION_BASE}
+        children : [
+          {
+            path: '', 
+            loadComponent: () => import('./features/submission/component/view/submission.view').then(m => m.SubmissionViewComponent),
+            data: {permission : PermissionKey.SUBMISSION_BASE}
+          },
+          // {
+          //   path: RoutePath.ADD, 
+          //   loadComponent: () => import('./features/task/component/add/task.add').then(m => m.AddTaskComponent),
+          //   data: {permission : PermissionKey.TASK_ADD}
+          // },
+          // {
+          //   path: `${RoutePath.EDIT}/${RoutePath.PARMAS_ID}`, 
+          //   loadComponent: () => import('./features/task/component/edit/task.edit').then(m => m.EditTaskComponent),
+          //   data: {permission : PermissionKey.TASK_EDIT}
+          // }
+          
+        ]
       },
       {
         path : RoutePath.TASK_BASE,
@@ -105,7 +122,24 @@ const routes: Routes = [
       {
         path : RoutePath.TASK_ASSIGNED_BASE,
         loadComponent : () => import('./features/taskAssigned/taskAssigned.page').then(m => m.TaskAssigned),
-        data : {permission : PermissionKey.TASK_BASE}
+        children : [
+          {
+            path: '', 
+            loadComponent: () => import('./features/taskAssigned/component/view/taskAssigned.view').then(m => m.TaskAssignedViewComponent),
+            data: {permission : PermissionKey.TASK_ASSIGNED_BASE}
+          },
+          {
+            path: RoutePath.ADD, 
+            loadComponent: () => import('./features/taskAssigned/component/add/taskAssigned.add').then(m => m.AddTaskAssignmentComponent),
+            data: {permission : PermissionKey.TASK_ASSIGNED_ADD}
+          },
+          {
+            path: `${RoutePath.EDIT}/${RoutePath.PARMAS_ID}`, 
+            loadComponent: () => import('./features/taskAssigned/component/edit/taskAssigned.edit').then(m => m.EditTaskAssignmentComponent),
+            data: {permission : PermissionKey.TASK_EDIT}
+          }
+          
+        ]
       },
       {
         path:RoutePath.REVIEW_BASE,

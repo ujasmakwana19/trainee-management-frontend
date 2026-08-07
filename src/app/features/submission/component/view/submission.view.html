@@ -1,0 +1,10 @@
+<div class="page-container">
+    <div class="header-actions">
+        <app-button [type]="ButtonType.BUTTON" (clicked)="router.navigate([RoutePath.SUBMISSION_BASE, RoutePath.ADD])"
+            [permission]="PermissionKey.SUBMISSION_ADD">
+            {{TextValue.CREATE_SUBMISSION}}
+        </app-button>
+    </div>
+
+    <app-data-table [data]="submissionService.submissions()" [columns]="columns" trackByProperty="id"/>
+</div>

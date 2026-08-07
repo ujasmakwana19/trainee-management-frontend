@@ -14,16 +14,18 @@ export class TraineeService {
     readonly trainees = this.traineesSignal.asReadonly();
 
 
-    private refresh() {
-        this.apiHandler.getApi<TraineeResponse[]>(TRAINEE_GETALL).subscribe({
-            next : (response : ApiResponse<TraineeResponse[]>) => {
-                this.traineesSignal.set(response.data)
-            }
+    refreshGetAll() : void  {
+        this.getAll().subscribe({
+            next : () => {}
         })
     }
     
-    getAll() : void {
-        this.refresh()
+    getAll() : Observable<ApiResponse<TraineeResponse[]>> {
+        return this.apiHandler.getApi<TraineeResponse[]>(TRAINEE_GETALL).pipe(
+            tap ((response : ApiResponse<TraineeResponse[]>) => {
+                this.traineesSignal.set(response.data)
+            })
+        )
     }
 
     createTrainee(body : TraineeCreateRequest) : Observable<ApiResponse<TraineeResponse>> {
@@ -35,7 +37,7 @@ export class TraineeService {
 
     deleteTrainee(id : number) : Observable<ApiResponse<null>> {
         return this.apiHandler.deleteApi<null>(`${TRAINEE_DELETE}${id}`).pipe(
-            tap(() => this.refresh())
+            tap(() => this.refreshGetAll())
         )
     }
 
@@ -46,8 +48,6 @@ export class TraineeService {
         return this.apiHandler.putApi<TraineeUpdateRequest, TraineeResponse>(
             `${TRAINEE_UPDATE}${id}`,
             body
-        ).pipe(
-            tap(() => this.refresh())
         )
     }
     
