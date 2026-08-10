@@ -2,13 +2,13 @@
     <div class="header-actions">
         <app-button 
             [type]="ButtonType.BUTTON" 
-            (clicked)="router.navigate([RoutePath.SUBMISSION_BASE, RoutePath.ADD])"
-            [permission]="PermissionKey.SUBMISSION_ADD">
-            {{TextValue.CREATE_SUBMISSION}}
+            (clicked)="router.navigate([RoutePath.REVIEW_BASE, RoutePath.ADD])"
+            [permission]="PermissionKey.REVIEW_ADD">
+            {{TextValue.CREATE_REVIEW}}
         </app-button>
     </div>
 
     <app-data-table 
-        [data]="submissionService.submissions()" 
+        [data]="reviewService.reviews()" 
         [columns]="columns" trackByProperty="id"/>
 </div>

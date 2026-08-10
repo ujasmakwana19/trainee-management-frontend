@@ -37,9 +37,6 @@ export const PermissionKey = {
 }
 
 export const AuthorisePermission  : PermissionHash = {
-    [PermissionKey.TASK_BASE] : [] ,
-    [PermissionKey.SUBMISSION_BASE] : [],
-    [PermissionKey.REVIEW_BASE] :  [],
     
     [PermissionKey.TRAINEE_BASE] : [UserRole.Mentor, UserRole.Admin] ,
     [PermissionKey.TRAINEE_ADD] : [ UserRole.Mentor,UserRole.Admin],
@@ -50,16 +47,23 @@ export const AuthorisePermission  : PermissionHash = {
     [PermissionKey.MENTOR_ADD] : [UserRole.Admin],
     [PermissionKey.MENTOR_EDIT] : [UserRole.Admin],
     [PermissionKey.MENTOR_DELETE] : [UserRole.Admin],
-
+    
     [PermissionKey.TASK_BASE] : [UserRole.Mentor, UserRole.Admin] ,
     [PermissionKey.TASK_ADD] : [UserRole.Mentor, UserRole.Admin],
     [PermissionKey.TASK_EDIT] : [UserRole.Mentor, UserRole.Admin],
     [PermissionKey.TASK_DELETE] : [UserRole.Mentor, UserRole.Admin],
-
+    
     [PermissionKey.TASK_ASSIGNED_BASE] : [] ,
     [PermissionKey.TASK_ASSIGNED_DETAIL] : [],
     [PermissionKey.TASK_ASSIGNED_ADD] : [UserRole.Mentor, UserRole.Admin],
     [PermissionKey.TASK_ASSIGNED_EDIT] : [UserRole.Mentor, UserRole.Admin],
+    
+    [PermissionKey.SUBMISSION_BASE] : [] ,
+    [PermissionKey.SUBMISSION_ADD] : [UserRole.Trainee, UserRole.Admin],
+    
+    [PermissionKey.REVIEW_BASE] :  [],
+    [PermissionKey.REVIEW_BASE] : [] ,
+    [PermissionKey.REVIEW_ADD] : [UserRole.Mentor, UserRole.Admin],
 
 
     [PermissionKey.USER_PROFILE_BASE] : [],

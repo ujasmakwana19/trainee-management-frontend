@@ -2,8 +2,8 @@
     <form [formGroup]="updateTaskAssignment">
         
         <app-dropdown
-            label="Status"
-            placeholder="Select Status"
+            [label]=TextValue.TASK_STATUS
+            [placeholder]=TextValue.TASK_SELECT_STATUS
             [options]="statusOptions"
             [control]="updateTaskAssignment.get('status')">
         </app-dropdown>

@@ -2,49 +2,49 @@
   <form [formGroup]="addTaskAssignment">
 
     <app-dropdown
-      label="Trainee"
-      placeholder="Select Trainee"
+      [label]="TextValue.TRAINEE"
+      [placeholder]="TextValue.TASK_SELECT_TRAINEE"
       [options]="traineeOptions()"
       [control]="addTaskAssignment.get('traineeId')">
     </app-dropdown>
 
     <app-dropdown
-      label="Mentor"
-      placeholder="Select Mentor"
+      [label]="TextValue.MENTOR"
+      [placeholder]="TextValue.TASK_SELECT_MENTOR"
       [options]="mentorOptions()"
       [control]="addTaskAssignment.get('mentorId')">
     </app-dropdown>
 
     <app-dropdown
-      label="Task"
-      placeholder="Select Task"
+      [label]="TextValue.TASK"
+      [placeholder]="TextValue.TASK_SELECT_TASK"
       [options]="taskOptions()"
       [control]="addTaskAssignment.get('learningTaskId')">
     </app-dropdown>
 
     <app-input
-      label="Assigned Date"
+      [label]="TextValue.TASK_ASSIGN_DATE"
       type="date"
       [control]="addTaskAssignment.get('assignedDate')">
     </app-input>
 
     <app-input
-      label="Due Date"
+      [label]="TextValue.TASK_DUE_DATE"
       type="date"
       [control]="addTaskAssignment.get('dueDate')">
     </app-input>
 
     <app-dropdown
-      label="Status"
-      placeholder="Select Status"
+      [label]="TextValue.TASK_STATUS"
+      [placeholder]="TextValue.TASK_SELECT_STATUS"
       [options]="statusOptions"
       [control]="addTaskAssignment.get('status')">
     </app-dropdown>
 
     <app-input
-      label="Remark"
+      [label]="TextValue.TASK_REMARK"
       type="text"
-      placeholder="Enter Remark"
+      [placeholder]="TextValue.TASK_REMARK"
       [control]="addTaskAssignment.get('remark')">
     </app-input>
 

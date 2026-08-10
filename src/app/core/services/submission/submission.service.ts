@@ -29,7 +29,7 @@ export class SubmissionService {
         })
     }
 
-    createTaskAssignment(body : SubmissionCreateRequest) : Observable<ApiResponse<null>> {
+    createSubmisson(body : SubmissionCreateRequest) : Observable<ApiResponse<null>> {
         return this.apiHandler.postApi<SubmissionCreateRequest, null>(
             SUBMISSION_CREATE,
             body 

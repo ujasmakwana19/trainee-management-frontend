@@ -1,0 +1,56 @@
+<main>
+  <form [formGroup]="addReview">
+
+    <app-dropdown
+      [label]="TextValue.TASK_ASSIGNMENT"
+      [placeholder]="TextValue.TASK_SELECT_TASK_ASSIGNED"
+      [options]="submissionOptions()"
+      [control]="addReview.get('submissionId')">
+    </app-dropdown>
+
+    <app-dropdown
+      [label]="TextValue.MENTOR"
+      [placeholder]="TextValue.MENTOR"
+      [options]="mentorOptions()"
+      [control]="addReview.get('mentorId')">
+    </app-dropdown>
+
+    <app-input
+      [label]="TextValue.FEEDBACK"
+      type="text"
+      [placeholder]="TextValue.FEEDBACK"
+      [control]="addReview.get('feedback')">
+    </app-input>
+
+    <app-input
+      [label]="TextValue.TASK_SCORE"
+      type="number"
+      [placeholder]="TextValue.TASK_SCORE"
+      [control]="addReview.get('score')">
+    </app-input>
+
+    <app-input
+      [label]="TextValue.TASK_REVIEW_DATE"
+      type="date"
+      [control]="addReview.get('reviewedDate')">
+    </app-input>
+
+    <app-dropdown
+      [label]="TextValue.TASK_STATUS"
+      [placeholder]="TextValue.TASK_SELECT_STATUS"
+      [options]="statusOptions"
+      [control]="addReview.get('status')">
+    </app-dropdown>
+
+    <div class="form-actions">
+      <app-button
+        [type]="ButtonType.SUBMIT"
+        [variant]="ButtonVariant.SAVE"
+        [isDisable]="addReview.invalid || isClicked()"
+        (clicked)="onSubmit()">
+        Save
+      </app-button>
+    </div>
+
+  </form>
+</main>

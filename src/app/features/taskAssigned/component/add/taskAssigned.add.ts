@@ -103,7 +103,7 @@ export class AddTaskAssignmentComponent implements OnInit {
 
     remark: new FormControl('', {
       nonNullable: true,
-      validators: [Validators.maxLength(500)]
+      validators: [Validators.required, Validators.maxLength(500)]
     })
   });
 

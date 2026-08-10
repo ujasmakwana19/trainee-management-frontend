@@ -1,0 +1,49 @@
+<main>
+  <form [formGroup]="addSubmission">
+
+    <app-dropdown
+      [label]="TextValue.TASK_ASSIGNMENT"
+      [placeholder]="TextValue.TASK_SELECT_TASK_ASSIGNED"
+      [options]="taskAssignedOptions()"
+      [control]="addSubmission.get('taskAssignmentId')">
+    </app-dropdown>
+
+    <app-input
+      [label]="TextValue.SUBMISSION_URL"
+      type="text"
+      [placeholder]="TextValue.TASK_URL"
+      [control]="addSubmission.get('submissionUrl')">
+    </app-input>
+
+    <app-input
+      [label]="TextValue.TASK_SUBMISSION_DATE"
+      type="date"
+      [control]="addSubmission.get('submittedDate')">
+    </app-input>
+
+    <app-input
+      [label]="TextValue.TASK_NOTES"
+      type="text"
+      [placeholder]="TextValue.TASK_WRITE_NOTES_OPTIONAL"
+      [control]="addSubmission.get('notes')">
+    </app-input>
+
+    <app-dropdown
+      [label]="TextValue.TASK_STATUS"
+      [placeholder]="TextValue.REVIEWS"
+      [options]="statusOptions"
+      [control]="addSubmission.get('status')">
+    </app-dropdown>
+
+    <div class="form-actions">
+      <app-button
+        [type]="ButtonType.SUBMIT"
+        [variant]="ButtonVariant.SAVE"
+        [isDisable]="addSubmission.invalid || isClicked()"
+        (clicked)="onSubmit()">
+        Save
+      </app-button>
+    </div>
+
+  </form>
+</main>

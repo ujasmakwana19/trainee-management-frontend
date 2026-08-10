@@ -12,7 +12,7 @@ import { SubmissionService } from "../../../../core/services/submission/submissi
 import { SubmissionResponse, SubmissionStatus } from "../../../../core/services/submission/submission.model";
 
 @Component({
-  selector: "app-taskAssign-view",
+  selector: "app-submission-view",
   standalone: true,
   imports: [ButtonComponent, DataTableComponent],
   templateUrl: `./submission.view.html`,

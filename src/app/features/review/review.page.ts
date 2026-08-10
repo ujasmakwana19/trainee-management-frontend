@@ -1,10 +1,11 @@
 import { Component } from "@angular/core";
+import { RouterOutlet } from "@angular/router";
 
 @Component({
     selector : `app-review`,
     standalone : true,
-    imports : [],
-    template : `Review Content`
+    imports : [RouterOutlet],
+    template : `<router-outlet />`
 })
 
 export class ReviewPage {

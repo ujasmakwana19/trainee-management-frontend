@@ -1,6 +1,7 @@
 import { Component, inject } from "@angular/core";
 import { UserProfileService } from "../../../core/services/userprofile/userprofile.service";
 import { UserRole } from "../../../core/services/auth/auth.model";
+import { TextValue } from "../../../shared/text.localizer";
 
 @Component({
     selector : `app-userprofile-view`,
@@ -13,6 +14,7 @@ import { UserRole } from "../../../core/services/auth/auth.model";
 export class UserProfileComponent {
     userProfileService = inject(UserProfileService)
     UserRole = UserRole
+    TextValue = TextValue
 
     ngOnInit(){
         this.userProfileService.getProfile()

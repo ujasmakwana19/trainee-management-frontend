@@ -5,6 +5,7 @@ export const TextValue = {
     TRAINEE : "Trainee",
     MENTOR : "Mentor",
     MANAGE_TASK : "Manage Tasks",
+    TASK : "Task",
     TASK_ASSIGNED : "Task Assigned",
     SUBMISSIONS : "Submissions",
     REVIEWS : "Reviews",
@@ -13,6 +14,7 @@ export const TextValue = {
     UPDATE : "Update",
     EDIT : "Edit",
     DELETE : "Delete",
+    FEEDBACK : "Feedback",
 
     // Major Parts
     BRAND_TITLE : "Trainee Portal",
@@ -23,6 +25,8 @@ export const TextValue = {
     // Label
     EMAIL_LABEL : "Email",
     PASS_LABEL : "Password",
+    USER_NAME : "Username",
+    USER_ROLE : "User Role",
     FIRST_NAME : "First Name",
     LAST_NAME : "Last Name",
     TRAINEE_FULL_NAME : "Trainee",
@@ -33,18 +37,28 @@ export const TextValue = {
     TRAINEE_STATUS : "Status",
     MENTOR_STATUS : "Status",
     TASK_TITLE : 'Title',
+    TASK_ASSIGNMENT : 'Assignment',
     TASK_DESCRIPTION : 'Description',
     TASK_TECHSTACK : "Expected Tech Stack",
     TASK_ASSIGN_DATE : "Assign Date",
     TASK_SUBMITTED_DATE : "Submitted Date",
+    TASK_REVIEWED_DATE : "Reviewed Date",
     TASK_REMARK : "Remark",
     TASK_DUE_DATE : "Due Date",
     TASK_STATUS : "Status",
+    TASK_SUBMISSION : "Submission URL",
+    TASK_SUBMISSION_DATE : "Submission DATE",
+    TASK_REVIEW_DATE : "Review Date",
+    TASK_NOTES : "Notes",
+    TASK_SUBMISSION_DETAIL : "Submission of:",
+    TASK_SCORE : "Score",
+    
 
     // Task Specific
     CREATE_TASK : "Create",
     ASSIGN_TASK : "Assign Task",
     CREATE_SUBMISSION : "DO Submission",
+    CREATE_REVIEW : "Give Review",
 
     // PlaceHolder 
     EMAIL_PLACEHOLDER : "you@example.com",
@@ -52,6 +66,13 @@ export const TextValue = {
     FIRST_NAME_PLACEHOLDER : "John",
     LAST_NAME_PLACEHOLDER : "Doe",
     TECH_STACK_PLACEHOLDER : "Write you expertise",
+    TASK_URL : "Enter URL",
+    TASK_SELECT_STATUS : "Select Status",
+    TASK_SELECT_TRAINEE : "Select Trainee",
+    TASK_SELECT_MENTOR : "Select Mentor",
+    TASK_SELECT_TASK : "Select Task",
+    TASK_SELECT_TASK_ASSIGNED : "Select Task Assignment",
+    TASK_WRITE_NOTES_OPTIONAL : "Write notes.. (Optional)",
 
     // VIEW HEADER TABLE TEXT
     ACTION_LABEL : "Actions",

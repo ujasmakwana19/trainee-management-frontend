@@ -84,17 +84,11 @@ const routes: Routes = [
             loadComponent: () => import('./features/submission/component/view/submission.view').then(m => m.SubmissionViewComponent),
             data: {permission : PermissionKey.SUBMISSION_BASE}
           },
-          // {
-          //   path: RoutePath.ADD, 
-          //   loadComponent: () => import('./features/task/component/add/task.add').then(m => m.AddTaskComponent),
-          //   data: {permission : PermissionKey.TASK_ADD}
-          // },
-          // {
-          //   path: `${RoutePath.EDIT}/${RoutePath.PARMAS_ID}`, 
-          //   loadComponent: () => import('./features/task/component/edit/task.edit').then(m => m.EditTaskComponent),
-          //   data: {permission : PermissionKey.TASK_EDIT}
-          // }
-          
+          {
+            path: RoutePath.ADD, 
+            loadComponent: () => import('./features/submission/component/add/submission.add').then(m => m.AddSubmission),
+            data: {permission : PermissionKey.SUBMISSION_ADD}
+          },
         ]
       },
       {
@@ -144,7 +138,19 @@ const routes: Routes = [
       {
         path:RoutePath.REVIEW_BASE,
         loadComponent : () => import('./features/review/review.page').then(m => m.ReviewPage),
-        data : {permission : PermissionKey.REVIEW_BASE}
+        children : [
+          {
+            path: '', 
+            loadComponent: () => import('./features/review/component/view/review.view').then(m => m.ReviewViewComponent),
+            data: {permission : PermissionKey.REVIEW_BASE}
+          },
+          {
+            path: RoutePath.ADD, 
+            loadComponent: () => import('./features/review/component/add/review.add').then(m => m.AddReviewComponent),
+            data: {permission : PermissionKey.REVIEW_ADD}
+          },
+          
+        ]
       }
     ]
   },
